@@ -1,0 +1,42 @@
+.admin-panel-container {
+    max-width: 800px;
+    margin: 50px auto;
+    text-align: center;
+  }
+  
+  .admin-panel-container h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+  
+  .admin-options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .admin-card {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .admin-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .admin-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .admin-card p {
+    font-size: 14px;
+    color: #555;
+  }
+  

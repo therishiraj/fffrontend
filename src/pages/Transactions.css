@@ -1,0 +1,28 @@
+.transactions-page {
+    padding: 20px;
+  }
+  
+  .transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .transaction-table th,
+  .transaction-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .transaction-table th {
+    background-color: #f7f7f7;
+  }
+  
+  .transaction-table td {
+    background-color: #ffffff;
+  }
+  
+  .transaction-table tr:hover td {
+    background-color: #e7f1ff;
+  }

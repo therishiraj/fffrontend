@@ -1,0 +1,98 @@
+.home {
+  font-family: Arial, sans-serif;
+}
+
+.hero-banner {
+  position: relative;
+  background: url('../assets/hostel.jpg') no-repeat center center; /* Set the image as the background */
+  background-size: cover; /* Ensure the image covers the entire section */
+  color: #FFFFFF; /* White text for strong contrast */
+  text-align: center;
+  padding: 60px 20px;
+  overflow: hidden; /* Prevent content from overflowing */
+}
+
+/* Dark overlay for faded effect */
+.hero-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
+  z-index: 1; /* Ensure the overlay is below the text and button */
+}
+
+.hero-banner h1 {
+  font-size: 3em;
+  margin-bottom: 10px;
+  color:white; /* Slightly darker shade to contrast the background */
+  z-index: 2; /* Ensure the heading is above the overlay */
+  position: relative; /* Keep it above the overlay */
+}
+
+.hero-banner p {
+  font-size: 1.5em;
+  color: white; /* Softer text color for readability */
+  z-index: 2; /* Ensure the paragraph is above the overlay */
+  position: relative; /* Keep it above the overlay */
+}
+
+.shop-now-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #FF8C42; /* Distinct color for the button */
+  color: #FFFFFF;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
+  z-index: 2; /* Ensure the button is above the overlay */
+  position: relative; /* Keep it above the overlay */
+}
+
+.shop-now-btn:hover {
+  background-color: #FFD166;
+  color: #4A4E69;
+}
+
+.featured-section {
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #FFF5E1; /* Warm, light background to differentiate from navbar */
+}
+
+.featured-section h2 {
+  font-size: 2em;
+  color: #FF8C42; /* Matching hero banner button color */
+  margin-bottom: 20px;
+}
+
+.testimonials {
+  padding: 40px 20px;
+  background-color: #F7F7F7; /* Neutral background for testimonials */
+}
+
+.testimonial-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.testimonial-card {
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  padding: 20px;
+  max-width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #4A4E69;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Add transition for smooth scaling */
+}
+
+.testimonial-card:hover {
+  transform: scale(1.05); /* Slightly scale the card when hovered */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhance the shadow on hover for a more elevated effect */
+}

@@ -1,0 +1,132 @@
+.auth-container {
+  display: flex;
+  width: 800px;
+  height: 400px;
+  margin: 50px auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sign-in, .sign-up {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.sign-in {
+  background-color: #fff;
+}
+
+.sign-in h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.sign-in p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.sign-in input {
+  width: 80%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.forgot-password {
+  font-size: 12px;
+  color: #666;
+  text-align: left;
+  width: 80%;
+  margin-top: 10px;
+}
+
+.sign-in-button {
+  padding: 10px 20px;
+  background-color: #005f80;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 80%;
+}
+
+.sign-in-button:hover {
+  background-color: #004a66;
+}
+
+.sign-up {
+  background: linear-gradient(135deg, #0076c1, #00a3ff);
+  color: #fff;
+}
+
+.sign-up h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.sign-up p {
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 0 20px;
+  color: #fff;
+}
+
+.sign-up-button {
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.sign-up-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+/* Ensure consistent input width */
+.sign-in input {
+  width: 80%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Style the links with an underline and spacing */
+.auth-links {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.forgot-password,
+.auth-links .admin-login {
+  color: #666;
+  text-decoration: underline; /* Make link underlined */
+  cursor: pointer; /* Show pointer on hover */
+}
+
+.auth-links .admin-login {
+  margin-left: auto;
+}
+
+.auth-links .admin-login:hover {
+  color: #004a66;
+}
+

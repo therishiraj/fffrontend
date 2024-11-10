@@ -1,0 +1,35 @@
+.review-items-container {
+    max-width: 800px;
+    margin: 50px auto;
+    text-align: center;
+  }
+  
+  .item-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .item-list li {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin: 5px 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .remove-item-button {
+    padding: 8px 15px;
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .remove-item-button:hover {
+    background-color: #c9302c;
+  }
+  
