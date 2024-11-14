@@ -1,21 +1,38 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Login.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./Login.css";
+import axios from "axios";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  axios.defaults.baseURL = "http://13.54.149.207:3001/api/v0";
+  // axios.defaults.baseURL = "http://localhost:3001/api/v0";
   const handleLogin = (e) => {
     e.preventDefault();
     // Check if email ends with @nitc.ac.in
-    if (!email.endsWith('@nitc.ac.in')) {
-      alert('Please use a valid @nitc.ac.in email address.');
-      return;
-    }
+    axios
+      .post("/authenticate/login", {
+        username: email,
+        password: password,
+      })
+      .then((response) => {
+        console.log("Succesfully logged in");
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("user_id", response.data.user._id);
+        localStorage.setItem("email", response.data.user.email);
+        localStorage.setItem("name", response.data.user.name);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      })
+      .finally(() => {
+        setEmail("");
+        setPassword("");
+      });
 
     // Handle login logic here (e.g., API call to authenticate user)
-    console.log('Logging in:', { email, password });
   };
 
   return (
@@ -40,15 +57,25 @@ const Login = () => {
           />
           <div className="auth-links">
             <Link to="/forgot-password">Forgot your password?</Link>
-            <Link to="/admin-login" className="admin-login">Admin login</Link>
+            <Link to="/admin-login" className="admin-login">
+              Admin login
+            </Link>
           </div>
-          <button type="submit" className="sign-in-button">SIGN IN</button>
+          <button
+            type="submit"
+            className="sign-in-button"
+            onClick={(e) => handleLogin(e)}
+          >
+            SIGN IN
+          </button>
         </form>
       </div>
       <div className="sign-up">
         <h2>Hello, Friend!</h2>
         <p>Enter your personal details and start your journey with us</p>
-        <Link to="/sign-up" className="sign-up-button">SIGN UP</Link>
+        <Link to="/sign-up" className="sign-up-button">
+          SIGN UP
+        </Link>
       </div>
     </div>
   );
