@@ -2,13 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';  // Import Link from react-router-dom
 import './LandingPage.css';
 import campusImage from '../assets/campus.png';  // Import the campus image
-
+import logo from '../assets/logo2.png';  // Import the logo image
 
 const LandingPage = () => {
   return (
     <div className="landing-page">
       {/* Hero Section */}
       <section className="hero">
+        {/* Logo image positioned in front of the background */}
+        <img src={logo} alt="Logo" className="logo-image" />
 
         <h1>Welcome to Fresh Finds</h1>
         <p>Connecting university students to buy and sell used items easily.</p>
