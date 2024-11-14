@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import LandingPage from './pages/LandingPage'; // Import the Landing Page
+import LandingPage from './pages/LandingPage';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import AboutUs from './pages/AboutUs';
@@ -18,7 +18,7 @@ import ContactUs from './pages/ContactUs';
 import AdminLogin from './pages/AdminLogin';
 import AdminPanel from './pages/AdminPanel';
 import ReviewUsers from './pages/ReviewUsers';
-import ReviewItems from './pages/ReviewItems'; 
+import ReviewItems from './pages/ReviewItems';
 import './App.css';
 
 function App() {
@@ -41,10 +41,9 @@ function App() {
           <Route path="/post-item" element={<PostItem />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/admin-panel" element={<AdminPanel />} />
-        <Route path="/review-users" element={<ReviewUsers />} />
-        <Route path="/review-items" element={<ReviewItems />} />
-
+          <Route path="/admin-panel" element={<AdminPanel />} />
+          <Route path="/review-users" element={<ReviewUsers />} />
+          <Route path="/review-items" element={<ReviewItems />} />
         </Routes>
         <Footer />
       </div>
