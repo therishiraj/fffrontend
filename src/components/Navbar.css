@@ -1,14 +1,20 @@
+/* Navbar Container */
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  padding: 20px;
-  background-color: #4A4E69; /* Updated background color to a professional, muted gray */
+  padding: 15px 30px;
+  background-color: #4A4E69;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Logo Section */
 .nav-logo {
-  font-size: 1.5em;
-  color: #FFD166; /* Updated logo color for visibility and brand distinction */
+  font-size: 1.75em;
+  font-weight: bold;
+  color: #FFD166;
+  padding: 8px 16px;
+  border-radius: 6px;
 }
 
 .logo-image {
@@ -16,93 +22,134 @@
   width: 110px;
 }
 
+/* Navigation Links */
 .nav-links {
   list-style: none;
-  display: flex;
-  gap: 20px;
-}
-
-.nav-links a {
-  color: #FFFFFF; /* White text for better readability */
-  text-decoration: none;
-  font-weight: 500; /* Slightly bolder font for clarity */
-}
-
-.nav-links a:hover {
-  color: #FFD166; /* Match accent color on hover for brand consistency */
-  text-decoration: underline;
-}
-
-.nav-auth {
   display: flex;
   gap: 10px;
 }
 
-.login-btn,
-.register-btn {
-  padding: 10px 15px;
-  border: none;
-  cursor: pointer;
+.nav-links a {
+  color: #FFFFFF;
+  font-size: 1.1em;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  background-color: transparent;
   transition: background-color 0.3s, color 0.3s;
+  display: block; /* Makes the link cover the entire area */
 }
 
-/* Updated hover effect for login button */
+/* Hover effect with full background */
+.nav-links a:hover {
+  background-color: #6A6E89; /* Full background color on hover */
+  color: #FFD166;
+  text-decoration: none;
+}
+
+
+/* Authentication Buttons */
+.nav-auth {
+  display: flex;
+  gap: 15px;
+}
+
+.login-btn,
+.register-btn {
+  font-size: 1em;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 .login-btn {
   background-color: #FFFFFF;
-  color: #4A4E69; /* Matching main background color for a cohesive look */
+  color: #4A4E69;
+  font-weight: 600;
 }
+
 .login-btn:hover {
   background-color: #4A4E69;
   color: #FFD166;
-  border: 1px solid #FFD166; /* Border on hover for visual feedback */
+  border: 1px solid #FFD166;
 }
 
-/* Updated hover effect for register button */
 .register-btn {
   background-color: #FFD166;
   color: #4A4E69;
+  font-weight: 600;
 }
+
 .register-btn:hover {
   background-color: #4A4E69;
   color: #FFD166;
   border: 1px solid #FFD166;
 }
 
-/* User menu styles */
+/* User Menu */
 .user-menu {
   position: relative;
   display: inline-block;
 }
 
 .menu-icon {
-  font-size: 1.5em;
+  font-size: 1.8em;
   background: none;
   border: none;
   cursor: pointer;
-  color: #FFD166; /* Accent color for easy identification */
+  color: #FFD166;
   padding: 0 10px;
 }
 
 /* Dropdown Menu */
 .dropdown-menu {
   position: absolute;
-  right: 0;
   top: 100%;
-  background-color: #FFFFFF;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  width: 150px;
-  border-radius: 4px;
+  left: 0;
+  background-color: #2D333B; /* Dark background similar to GitHub */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+  padding: 15px 0; /* Padding for spacing within the menu */
+  width: 220px;
+  border-radius: 8px;
   z-index: 1000;
+  display: none;
 }
 
-.dropdown-item {
+.user-menu:hover .dropdown-menu {
   display: block;
-  padding: 8px;
-  color: #4A4E69; /* Matches main theme color */
+}
+
+/* Dropdown Item Styling */
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: darkblue; /* Light text color */
+  font-size: 1em;
+  font-weight: 500;
   text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.2s;
 }
 
 .dropdown-item:hover {
-  background-color: #F0F0F0;
+  background-color: Black; /* Darker background on hover */
+  color: #FFFFFF; /* White text on hover */
+}
+
+/* Optional icon styling if using icons */
+.dropdown-item i {
+  margin-right: 10px;
+  font-size: 1.2em; /* Adjust icon size */
+  color: #8B949E; /* Light gray for icons */
+}
+
+/* Divider between sections */
+.dropdown-divider {
+  height: 1px;
+  background-color: #444C56;
+  margin: 8px 0;
+  border: none;
 }

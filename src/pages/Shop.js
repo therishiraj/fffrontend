@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Categories from '../components/Categories';
+import Categories from '../components/Categories'; // Import Categories component
 import './Shop.css';
 
 const Shop = () => {
@@ -69,7 +69,8 @@ const Shop = () => {
         <p>Browse through our wide range of affordable used items that are perfect for NITC students!</p>
       </header>
 
-      <Categories />
+      {/* Pass the handleCategorySelect function to Categories */}
+      <Categories onCategorySelect={handleCategorySelect} />
 
       <div className="filter-sort">
         <button onClick={handlePriceSort}>Sort by Price</button>
