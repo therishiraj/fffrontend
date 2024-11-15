@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [errMsg, setErrMsg] = useState("");
+  const navigate = useNavigate();
   axios.defaults.baseURL = "http://13.54.149.207:3001/api/v0";
   // axios.defaults.baseURL = "http://localhost:3001/api/v0";
   const handleLogin = (e) => {
@@ -23,9 +24,10 @@ const Login = () => {
         localStorage.setItem("user_id", response.data.user._id);
         localStorage.setItem("email", response.data.user.email);
         localStorage.setItem("name", response.data.user.name);
+        navigate("/home");
       })
       .catch((err) => {
-        console.log(err.message);
+        setErrMsg("Invalid username or password");
       })
       .finally(() => {
         setEmail("");
@@ -40,6 +42,7 @@ const Login = () => {
       <div className="sign-in">
         <h2>Sign in</h2>
         <p>Use your @nitc.ac.in account</p>
+        {errMsg?.length ? <p className="error">{errMsg}</p> : ""}
         <form onSubmit={handleLogin}>
           <input
             type="email"
