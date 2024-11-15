@@ -2,13 +2,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 15px 30px;
   background-color: #4A4E69; /* Updated background color to a professional, muted gray */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .nav-logo {
-  font-size: 1.5em;
+  font-size: 1.75em;
   color: #FFD166; /* Updated logo color for visibility and brand distinction */
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 6px;
 }
 
 .logo-image {
@@ -23,12 +27,19 @@
 }
 
 .nav-links a {
-  color: #FFFFFF; /* White text for better readability */
+  color: #FFFFFF;
+  font-size: 1.1em;
+  font-weight: 500;
   text-decoration: none;
-  font-weight: 500; /* Slightly bolder font for clarity */
+  padding: 10px 20px;
+  border-radius: 6px;
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+  display: block; /* Makes the link cover the entire area */
 }
 
 .nav-links a:hover {
+  background-color: #6A6E89;
   color: #FFD166; /* Match accent color on hover for brand consistency */
   text-decoration: underline;
 }
@@ -40,9 +51,11 @@
 
 .login-btn,
 .register-btn {
-  padding: 10px 15px;
+  font-size: 1em;
+  padding: 10px 20px;
   border: none;
   cursor: pointer;
+  border-radius: 6px;
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -50,6 +63,7 @@
 .login-btn {
   background-color: #FFFFFF;
   color: #4A4E69; /* Matching main background color for a cohesive look */
+  font-weight: 600;
 }
 .login-btn:hover {
   background-color: #4A4E69;
@@ -61,11 +75,26 @@
 .register-btn {
   background-color: #FFD166;
   color: #4A4E69;
+  font-weight: 600;
 }
 .register-btn:hover {
   background-color: #4A4E69;
   color: #FFD166;
   border: 1px solid #FFD166;
+}
+
+/* logout button*/
+.logout-btn {
+  background: none;
+  border: none;
+  color: #333;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: #f2f2f2;
 }
 
 /* User menu styles */
@@ -75,7 +104,7 @@
 }
 
 .menu-icon {
-  font-size: 1.5em;
+  font-size: 1.8em;
   background: none;
   border: none;
   cursor: pointer;
@@ -83,7 +112,51 @@
   padding: 0 10px;
 }
 
-/* Dropdown Menu */
+/* new*/
+.profile-icon {
+  cursor: pointer;
+  color: #555;
+  border-radius: 50%;
+}
+.user-profile {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+  padding: 15px 0;
+  border-radius: 8px;
+  width: 220px;
+  z-index: 9999;
+  display: none;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  padding: 10px 15px;
+  color: #4A4E69;
+  color: darkblue; /* Light text color */
+  font-size: 1em;
+  font-weight: 500;
+  text-decoration: none;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: Black; /* Darker background on hover */
+  color: #FFFFFF; /* White text on hover */
+}
+
+/* Dropdown Menu 
 .dropdown-menu {
   position: absolute;
   right: 0;
@@ -99,10 +172,11 @@
 .dropdown-item {
   display: block;
   padding: 8px;
-  color: #4A4E69; /* Matches main theme color */
+  color: #4A4E69; 
   text-decoration: none;
 }
 
 .dropdown-item:hover {
   background-color: #F0F0F0;
 }
+*/

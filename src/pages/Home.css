@@ -96,3 +96,6 @@
   transform: scale(1.05); /* Slightly scale the card when hovered */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhance the shadow on hover for a more elevated effect */
 }
+.hero-banner::before {
+  z-index: 0; /* Lowered z-index to ensure dropdown menu appears on top */
+}

@@ -207,3 +207,7 @@
     padding: 12px 25px;
   }
 }
+/* Ensure the dropdown menu appears above the overlay */
+.aboutus-hero::after {
+  z-index: 0; /* Lower this value if needed */
+}

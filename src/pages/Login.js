@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./Login.css";
 import axios from "axios";
 
@@ -8,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
   axios.defaults.baseURL = "http://13.54.149.207:3001/api/v0";
   // axios.defaults.baseURL = "http://localhost:3001/api/v0";
   const handleLogin = (e) => {
@@ -19,11 +21,13 @@ const Login = () => {
         password: password,
       })
       .then((response) => {
+        
         console.log("Succesfully logged in");
         localStorage.setItem("accessToken", response.data.accessToken);
         localStorage.setItem("user_id", response.data.user._id);
         localStorage.setItem("email", response.data.user.email);
         localStorage.setItem("name", response.data.user.name);
+        login(); 
         navigate("/home");
       })
       .catch((err) => {

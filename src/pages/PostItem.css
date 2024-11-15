@@ -1,120 +1,145 @@
 .post-item-container {
-    width: 90%; /* Make the container width 90% of the viewport */
-    max-width: 1200px; /* Set a maximum width limit */
-    margin: 0 auto; /* Center the container */
-    padding: 30px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 90%; /* Make the container width 90% of the viewport */
+  max-width: 1200px; /* Set a maximum width limit */
+  margin: 0 auto; /* Center the container */
+  padding: 30px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #4A4E69;
+  margin-bottom: 30px;
+}
+
+.post-item-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.label1 {
+  font-weight: bold;
+  color: #333;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+textarea {
+  height: 150px;
+}
+
+.rating {
+  display: flex;
+  gap: 5px;
+}
+
+.star {
+  font-size: 20px;
+  cursor: pointer;
+  color: #ddd;
+}
+
+.star.filled {
+  color: #FFD166;
+}
+
+input[type="file"] {
+  margin-top: 8px;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+}
+
+.submit-btn {
+  background-color: #00c853;
+  color: white;
+  padding: 14px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%; /* Make the button span full width */
+}
+
+.submit-btn:hover {
+  background-color: #009624;
+}
+.rating {
+  display: flex;
+  justify-content: center; /* Center the stars horizontally */
+  align-items: center; /* Center the stars vertically */
+  gap: 5px; /* Space between the stars */
+}
+
+.star {
+  font-size: 30px; /* Increase the font size of the star */
+  cursor: pointer;
+  color: #ddd;
+}
+
+.star.filled {
+  color: #FFD166;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .post-item-container {
+    width: 95%; /* Increase width for smaller screens */
   }
-  
+
   h2 {
-    text-align: center;
-    color: #4A4E69;
-    margin-bottom: 30px;
+    font-size: 1.5em;
   }
-  
-  .post-item-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
+
   .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
-  
-  label {
-    font-weight: bold;
-    color: #333;
-  }
-  
-  input[type="text"],
-  input[type="number"],
-  textarea,
-  select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    font-size: 14px;
-    margin-top: 8px;
-  }
-  
-  textarea {
-    height: 150px;
-  }
-  
-  .rating {
-    display: flex;
-    gap: 5px;
-  }
-  
-  .star {
-    font-size: 20px;
-    cursor: pointer;
-    color: #ddd;
-  }
-  
-  .star.filled {
-    color: #FFD166;
-  }
-  
-  input[type="file"] {
-    margin-top: 8px;
-    padding: 12px;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-  }
-  
+
   .submit-btn {
-    background-color: #00c853;
-    color: white;
-    padding: 14px 25px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 100%; /* Make the button span full width */
+    padding: 12px 20px;
+    font-size: 14px;
   }
-  
-  .submit-btn:hover {
-    background-color: #009624;
-  }
-  .rating {
-    display: flex;
-    justify-content: center; /* Center the stars horizontally */
-    align-items: center; /* Center the stars vertically */
-    gap: 5px; /* Space between the stars */
-  }
-  
-  .star {
-    font-size: 30px; /* Increase the font size of the star */
-    cursor: pointer;
-    color: #ddd;
-  }
-  
-  .star.filled {
-    color: #FFD166;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 600px) {
-    .post-item-container {
-      width: 95%; /* Increase width for smaller screens */
-    }
-  
-    h2 {
-      font-size: 1.5em;
-    }
-  
-    .form-group {
-      margin-bottom: 15px;
-    }
-  
-    .submit-btn {
-      padding: 12px 20px;
-      font-size: 14px;
-    }
-  }
-  
+}
+.rating .star {
+  position: relative;
+}
+
+.rating .star:hover::after {
+  content: attr(title);
+  position: absolute;
+  top: -30px; /* Slightly above the star */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 3px 5px; /* Smaller padding for a compact look */
+  border-radius: 3px;
+  font-size: 0.40em; /* Smaller font size */
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+  opacity: 0.9; /* Slightly transparent */
+}
+
+
+.condition-description {
+  margin-top: 2px;
+  font-size: 1em;
+  color: #4A4E69;
+}

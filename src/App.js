@@ -21,6 +21,14 @@ import ReviewUsers from './pages/ReviewUsers';
 import ReviewItems from './pages/ReviewItems';
 import './App.css';
 
+import { useAuth } from './context/AuthContext';
+import { Navigate } from 'react-router-dom';
+
+const ProtectedRoute = ({ children }) => {
+  const { isLoggedIn } = useAuth();
+  return isLoggedIn ? children : <Navigate to="/login" />;
+};
+
 function App() {
   return (
     <Router>
@@ -29,16 +37,30 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} /> {/* Default route to LandingPage */}
           <Route path="/home" element={<Home />} /> {/* Separate route for Home */}
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/shop" element={<ProtectedRoute>
+                <Shop />
+            </ProtectedRoute>} />
+          <Route path="/about-us" element={<ProtectedRoute>
+                <AboutUs />
+            </ProtectedRoute>} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register/>}/>
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/messages" element={<Messages />} />
-          <Route path="/transactions" element={<Transactions />} />
-          <Route path="/saved" element={<Saved />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/post-item" element={<PostItem />} />
+          <Route path="/messages" element={<ProtectedRoute>
+                <Messages />
+            </ProtectedRoute>} />
+          <Route path="/transactions" element={<ProtectedRoute>
+                <Transactions />
+            </ProtectedRoute>} />
+          <Route path="/saved" element={<ProtectedRoute>
+                <Saved />
+            </ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute>
+                <Profile />
+            </ProtectedRoute>} />
+          <Route path="/post-item" element={<ProtectedRoute>
+                <PostItem />
+            </ProtectedRoute>} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/admin-panel" element={<AdminPanel />} />
