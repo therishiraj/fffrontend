@@ -8,7 +8,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.sign-in, .sign-up {
+.sign-in,
+.sign-up {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -31,8 +32,13 @@
   color: #666;
   margin-bottom: 20px;
 }
-
-.sign-in input {
+.sign-in .error {
+  color: red;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+.sign-in form input {
   width: 80%;
   padding: 10px;
   margin: 8px 0;
@@ -129,4 +135,3 @@
 .auth-links .admin-login:hover {
   color: #004a66;
 }
-
