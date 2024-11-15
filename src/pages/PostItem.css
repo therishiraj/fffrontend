@@ -23,7 +23,7 @@
     margin-bottom: 20px;
   }
   
-  label {
+  .label1 {
     font-weight: bold;
     color: #333;
   }
@@ -116,5 +116,31 @@
       padding: 12px 20px;
       font-size: 14px;
     }
+  }
+  .rating .star {
+    position: relative;
+  }
+  
+  .rating .star:hover::after {
+    content: attr(title);
+    position: absolute;
+    top: -30px; /* Slightly above the star */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 3px 5px; /* Smaller padding for a compact look */
+    border-radius: 3px;
+    font-size: 0.40em; /* Smaller font size */
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    opacity: 0.9; /* Slightly transparent */
+  }
+  
+  
+  .condition-description {
+    margin-top: 2px;
+    font-size: 1em;
+    color: #4A4E69;
   }
   
