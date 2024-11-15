@@ -54,7 +54,7 @@ function AboutUs() {
           </li>
           <li>
             <h3>Ankit</h3>
-            <p><strong>Role:</strong> Project Manager & Tester</p>
+            <p><strong>Role:</strong> Full Stack Developer</p>
           </li>
         </ul>
       </section>
