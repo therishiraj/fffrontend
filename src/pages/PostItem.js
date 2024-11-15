@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './PostItem.css'; // We will add the styling for this component
+import './PostItem.css'; 
 import axios from 'axios';
 
 const PostItem = () => {
@@ -8,63 +8,61 @@ const PostItem = () => {
   const [price, setPrice] = useState('');
   const [itemDescription, setItemDescription] = useState('');
   const [category, setCategory] = useState('');
-  const [itemCondition, setItemCondition] = useState(0); // Rating scale (1-5)
+  const [itemCondition, setItemCondition] = useState(0); 
   const [conditionDescription, setConditionDescription] = useState('');
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
   const [error, setError] = useState('');
 
-  //axios.defaults.baseURL = "http://13.54.149.207:3001/api/v0";
-
-  // Define descriptions for each rating
   const descriptions = ["Bad", "Decent", "Fair", "Good", "Excellent"];
 
-  // Check if file is an image
-  const validateFile = (file) => {
+  const validateFiles = (selectedFiles) => {
     const allowedExtensions = ["image/jpeg", "image/jpg", "image/png"];
-    return file && allowedExtensions.includes(file.type);
+    return Array.from(selectedFiles).every((file) => allowedExtensions.includes(file.type));
   };
 
   const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    if (validateFile(selectedFile)) {
-      setFile(selectedFile);
+    const selectedFiles = event.target.files;
+    if (validateFiles(selectedFiles)) {
+      setFiles([...files, ...Array.from(selectedFiles)]);
       setError('');
     } else {
-      setError('Please upload a valid image file (jpg, jpeg, or png).');
+      setError('Please upload only valid image files (jpg, jpeg, or png).');
     }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!file || !validateFile(file)) {
-      setError('Please upload a valid image file (jpg, jpeg, or png).');
+    if (!files.length) {
+      setError('Please upload at least one image.');
       return;
     }
 
-    // Prepare form data
     const formData = new FormData();
-    const userId = localStorage.getItem('user_id'); // Fetch user_id from local storage
+    const userId = localStorage.getItem('user_id');
     formData.append('seller_id', userId);
     formData.append('item_name', itemName);
     formData.append('description', itemDescription);
+    formData.append('item_age', itemAge);
     formData.append('condition', itemCondition);
     formData.append('category', category);
     formData.append('price', price);
-    formData.append('file', file);
+    files.forEach((file) => formData.append('images', file));
 
     try {
-      // Send data to the backend
       const response = await axios.post('http://13.54.149.207:3001/api/v0/protected/add-product', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: localStorage.getItem('accessToken'), // Add authorization token if required
+          authorization: localStorage.getItem('accessToken'),
         },
       });
-
-      // Handle success
-      console.log('Token sent:', localStorage.getItem('token'));
-      console.log(response.data);
       alert('Item posted successfully!');
+      setItemName('');
+      setItemAge('');
+      setPrice('');
+      setItemDescription('');
+      setCategory('');
+      setItemCondition(0);
+      setFiles([]);
     } catch (error) {
       console.error(error);
       setError('Failed to post the item. Please try again later.');
@@ -75,7 +73,6 @@ const PostItem = () => {
     <div className="post-item-container">
       <h2>Post an Item</h2>
       <form onSubmit={handleSubmit} className="post-item-form">
-        {/* Item Name */}
         <div className="form-group">
           <label className="label1">Item Name</label>
           <input
@@ -86,29 +83,26 @@ const PostItem = () => {
           />
         </div>
 
-        {/* Item Age */}
         <div className="form-group">
-          <label className="label1">Item Age</label>
+          <label className="label1">Item Age (in months)</label>
           <input
-            type="text"
-            placeholder="Mention the Item Age in months"
+            type="number"
+            placeholder="Mention the Item Age"
             value={itemAge}
             onChange={(e) => setItemAge(e.target.value)}
           />
         </div>
 
-        {/* Price */}
         <div className="form-group">
-          <label className="label1">Price</label>
+          <label className="label1">Price (in Rs.)</label>
           <input
             type="number"
-            placeholder="Put your expected price in Rs."
+            placeholder="Enter expected price"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
         </div>
 
-        {/* Item Description */}
         <div className="form-group">
           <label className="label1">Item Description</label>
           <textarea
@@ -118,7 +112,6 @@ const PostItem = () => {
           />
         </div>
 
-        {/* Category */}
         <div className="form-group">
           <label className="label1">Category</label>
           <select value={category} onChange={(e) => setCategory(e.target.value)}>
@@ -130,7 +123,6 @@ const PostItem = () => {
           </select>
         </div>
 
-        {/* Item Condition (Rating) */}
         <div className="form-group">
           <label className="label1">Item Condition</label>
           <div className="rating">
@@ -142,27 +134,33 @@ const PostItem = () => {
                   setItemCondition(rating);
                   setConditionDescription(descriptions[rating - 1]);
                 }}
-                title={descriptions[rating - 1]} // Tooltip for each star
+                title={descriptions[rating - 1]}
               >
                 ★
               </span>
             ))}
           </div>
           {conditionDescription && (
-            <div className="condition-description">
-              {conditionDescription}
-            </div>
+            <div className="condition-description">{conditionDescription}</div>
           )}
         </div>
 
-        {/* File Upload */}
         <div className="form-group">
-          <label className="label1">Upload File</label>
-          <input type="file" onChange={handleFileChange} />
+          <label className="label1">Upload Images</label>
+          <input type="file" multiple onChange={handleFileChange} />
+          <div className="uploaded-images">
+            {files.map((file, index) => (
+              <img
+                key={index}
+                src={URL.createObjectURL(file)}
+                alt={`Uploaded Preview ${index + 1}`}
+                className="preview-image"
+              />
+            ))}
+          </div>
         </div>
         {error && <p className="error-message">{error}</p>}
 
-        {/* Submit Button */}
         <div className="form-group">
           <button type="submit" className="submit-btn">Submit</button>
         </div>

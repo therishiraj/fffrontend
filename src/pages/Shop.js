@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Categories from '../components/Categories'; // Import Categories component
+import Categories from '../components/Categories';
 import './Shop.css';
 
 const Shop = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0); // to set current index 
+  const [products, setProducts] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
   const [isCategoryDropdownVisible, setIsCategoryDropdownVisible] = useState(false);
   const [isPriceDropdownVisible, setIsPriceDropdownVisible] = useState(false);
@@ -19,6 +21,18 @@ const Shop = () => {
     setSelectedProduct(null);
   };
 
+  const handleImageNavigation = (direction) => {
+    if (selectedProduct) {
+      const totalImages = selectedProduct.images.length;
+      if (direction === 'next') {
+        setCurrentImageIndex((currentImageIndex + 1) % totalImages);
+      } else if (direction === 'prev') {
+        setCurrentImageIndex((currentImageIndex - 1 + totalImages) % totalImages);
+      }
+    }
+  };
+
+
   const handleMeetSeller = () => {
     closePopup();
     navigate('/messages');
@@ -26,12 +40,12 @@ const Shop = () => {
 
   const handleCategoryFilter = () => {
     setIsCategoryDropdownVisible(!isCategoryDropdownVisible);
-    setIsPriceDropdownVisible(false); // Close price dropdown if open
+    setIsPriceDropdownVisible(false);
   };
 
   const handlePriceSort = () => {
     setIsPriceDropdownVisible(!isPriceDropdownVisible);
-    setIsCategoryDropdownVisible(false); // Close category dropdown if open
+    setIsCategoryDropdownVisible(false);
   };
 
   const handleCategorySelect = (category) => {
@@ -40,23 +54,41 @@ const Shop = () => {
   };
 
   const handleSortSelect = (order) => {
-    const sorted = [...products].sort((a, b) => {
-      const priceA = parseFloat(a.price.replace('$', ''));
-      const priceB = parseFloat(b.price.replace('$', ''));
-      return order === 'low-to-high' ? priceA - priceB : priceB - priceA;
-    });
+    const sorted = [...products].sort((a, b) =>
+      order === 'low-to-high' ? a.price - b.price : b.price - a.price
+    );
     setSortedProducts(sorted);
     setIsPriceDropdownVisible(false);
   };
 
-  const products = [
-    { id: 1, name: 'Parker Ball Pen', image: 'https://m.media-amazon.com/images/I/71rzb-oaO6L.jpg', price: '$5', description: 'A good old costly pen', category: 'Stationery' },
-    { id: 2, name: 'Thermos Bottle', image: 'https://m.media-amazon.com/images/I/71sX+zyCwzL.jpg', price: '$10', description: 'A perfect container to keep your warm water hot for a long time', category: 'Kitchenware' },
-    { id: 3, name: 'Apple Charger', image: 'https://m.media-amazon.com/images/I/51mFSgo26PL._AC_.jpg', price: '$100', description: 'iPhone charger hai sir ji', category: 'Electronics' },
-    { id: 4, name: 'Kettle Electric', image: 'https://m.media-amazon.com/images/I/717V4glGOsL._AC_UF894,1000_QL80_.jpg', price: '$104', description: 'Best for making hot water and tea/coffee', category: 'Kitchenware' },
-    { id: 5, name: 'Table Lamp', image: 'https://m.media-amazon.com/images/I/61r9G8yzTCL.jpg', price: '$40', description: 'Study at night without disturbing your roommate now', category: 'Furniture' },
-    { id: 6, name: 'Pillow', image: 'https://m.media-amazon.com/images/I/71AwbwrbYCL._AC_UF350,350_QL80_.jpg', price: '$10', description: 'Takia hai bhay', category: 'Home Decor' },
-  ];
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch('http://13.54.149.207:3001/api/v0/open/get-products');
+      const data = await response.json();
+
+      if (data.success) {
+        const formattedProducts = data.items.map((item) => ({
+          id: item._id,
+          name: item.item_name,
+          images: item.image_urls, // Use array of images
+          price: item.price,
+          description: item.description,
+          category: item.category,
+          age: item.item_age,
+          condition: item.condition,
+        }));
+        setProducts(formattedProducts);
+      } else {
+        console.error('Failed to fetch products');
+      }
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const displayedProducts = (sortedProducts.length > 0 ? sortedProducts : products).filter(
     (product) => filteredCategory === 'All' || product.category === filteredCategory
@@ -69,7 +101,6 @@ const Shop = () => {
         <p>Browse through our wide range of affordable used items that are perfect for NITC students!</p>
       </header>
 
-      {/* Pass the handleCategorySelect function to Categories */}
       <Categories onCategorySelect={handleCategorySelect} />
 
       <div className="filter-sort">
@@ -100,11 +131,10 @@ const Shop = () => {
         <div className="product-grid">
           {displayedProducts.map((product) => (
             <div className="product-card" key={product.id}>
-              <img src={product.image} alt={product.name} />
+              <img src={product.images[0]} alt={product.name} />
               <h3>{product.name}</h3>
-              <p className="price">{product.price}</p>
-              <p className="description">{product.description}</p>
-              <p className="category">{product.category}</p>
+              <p className="price">₹{product.price}</p>
+              <p className="condition">Condition: {product.condition}/5</p>
               <button className="add-to-cart" onClick={() => handleProductClick(product)}>
                 Buy now
               </button>
@@ -117,9 +147,17 @@ const Shop = () => {
         <div className="popup">
           <div className="popup-content">
             <h3>{selectedProduct.name}</h3>
-            <img src={selectedProduct.image} alt={selectedProduct.name} />
-            <p>{selectedProduct.description}</p>
-            <p className="price">{selectedProduct.price}</p>
+            <div className="image-slider">
+              <img src={selectedProduct.images[currentImageIndex]} alt={`Product ${currentImageIndex + 1}`} />
+              <button className="arrow right-arrow" onClick={() => handleImageNavigation('next')}>
+                &#8250;
+              </button>
+            </div>
+            <p className="category">Category: {selectedProduct.category}</p>
+            <p className="description">{selectedProduct.description}</p>
+            <p className="age">Age: {selectedProduct.age} months</p>
+            <p className="condition">Condition: {selectedProduct.condition}/5</p>
+            <p className="price">Price: ₹{selectedProduct.price}</p>
             <button onClick={closePopup}>Close</button>
             <button onClick={handleMeetSeller} className="meet-seller">
               Meet the Seller

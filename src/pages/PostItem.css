@@ -1,145 +1,154 @@
 .post-item-container {
-  width: 90%; /* Make the container width 90% of the viewport */
-  max-width: 1200px; /* Set a maximum width limit */
-  margin: 0 auto; /* Center the container */
+  width: 90%; /* Adjust width to fit within the viewport */
+  max-width: 800px; /* Maximum width for large screens */
+  margin: 40px auto; /* Center align with spacing on top */
   padding: 30px;
   background-color: #f8f9fa;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
 }
 
 h2 {
   text-align: center;
   color: #4A4E69;
   margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 600;
 }
 
 .post-item-form {
   display: flex;
   flex-direction: column;
+  gap: 20px; /* Add spacing between form groups */
 }
 
 .form-group {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px; /* Add padding inside the form group */
 }
 
 .label1 {
   font-weight: bold;
   color: #333;
+  margin-bottom: 8px;
 }
 
 input[type="text"],
 input[type="number"],
 textarea,
 select {
-  width: 100%;
+  width: 100%; /* Utilize the full width of the form group */
   padding: 12px;
   border: 1px solid #e0e0e0;
-  border-radius: 5px;
-  font-size: 14px;
-  margin-top: 8px;
+  border-radius: 8px;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease;
 }
 
 textarea {
-  height: 150px;
+  height: 120px; /* Adjust textarea height */
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #4A90E2; /* Highlight on focus */
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.2); /* Subtle shadow on focus */
 }
 
 .rating {
   display: flex;
-  gap: 5px;
+  gap: 8px;
+  justify-content: center; /* Center align the stars */
+  margin-top: 10px;
 }
 
 .star {
-  font-size: 20px;
+  font-size: 28px;
   cursor: pointer;
   color: #ddd;
+  transition: color 0.3s;
 }
 
 .star.filled {
   color: #FFD166;
 }
 
-input[type="file"] {
-  margin-top: 8px;
-  padding: 12px;
-  border: 1px solid #e0e0e0;
+.uploaded-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.preview-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
   border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.error-message {
+  color: #FF6B6B;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
 }
 
 .submit-btn {
+  width: calc(100% - 40px); /* Leave equal spacing from both sides */
+  margin: 0 auto; /* Center align the button */
+  padding: 14px;
   background-color: #00c853;
   color: white;
-  padding: 14px 25px;
   font-size: 16px;
+  font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  width: 100%; /* Make the button span full width */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .submit-btn:hover {
   background-color: #009624;
-}
-.rating {
-  display: flex;
-  justify-content: center; /* Center the stars horizontally */
-  align-items: center; /* Center the stars vertically */
-  gap: 5px; /* Space between the stars */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.star {
-  font-size: 30px; /* Increase the font size of the star */
-  cursor: pointer;
-  color: #ddd;
-}
-
-.star.filled {
-  color: #FFD166;
+/* Tooltip for star ratings */
+.rating .star:hover::after {
+  content: attr(title);
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
 }
 
 /* Responsive Design */
 @media (max-width: 600px) {
   .post-item-container {
-    width: 95%; /* Increase width for smaller screens */
+    width: 95%; /* Make the container width slightly wider */
   }
 
   h2 {
-    font-size: 1.5em;
-  }
-
-  .form-group {
-    margin-bottom: 15px;
+    font-size: 24px; /* Adjust heading size for smaller screens */
   }
 
   .submit-btn {
-    padding: 12px 20px;
+    padding: 12px;
     font-size: 14px;
   }
-}
-.rating .star {
-  position: relative;
-}
-
-.rating .star:hover::after {
-  content: attr(title);
-  position: absolute;
-  top: -30px; /* Slightly above the star */
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #333;
-  color: #fff;
-  padding: 3px 5px; /* Smaller padding for a compact look */
-  border-radius: 3px;
-  font-size: 0.40em; /* Smaller font size */
-  white-space: nowrap;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
-  opacity: 0.9; /* Slightly transparent */
-}
-
-
-.condition-description {
-  margin-top: 2px;
-  font-size: 1em;
-  color: #4A4E69;
 }
