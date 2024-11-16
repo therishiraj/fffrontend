@@ -14,27 +14,31 @@ const Register = () => {
   const [address, setAddress] = useState("");
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+  const [showOtpPopup, setShowOtpPopup] = useState(false);
+  const [otp, setOtp] = useState("");
 
   const navigate = useNavigate();
+
   // Set base URL for axios
   axios.defaults.baseURL = "http://13.54.149.207:3001/api/v0";
 
   const handleRegister = (e) => {
     e.preventDefault();
 
-    // Check if the email ends with @nitc.ac.in
+    // Validate email
     if (!email.endsWith("@nitc.ac.in")) {
       setError("Only @nitc.ac.in email addresses are allowed for registration.");
       return;
     }
 
+    // Validate phone number
     const phoneRegex = /^\d{10}$/;
     if (!phoneRegex.test(phone)) {
       setError("Phone number must be exactly 10 digits.");
       return;
     }
 
-  // Validate alphanumeric password
+    // Validate alphanumeric password
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/; // Minimum 6 characters
     if (!passwordRegex.test(password)) {
       setError("Password must be at least 6 characters long and contain both letters and numbers.");
@@ -57,33 +61,32 @@ const Register = () => {
       })
       .then((response) => {
         console.log("Successfully registered:", response.data);
-        setSuccessMsg("Registration successful! Please log in.");
-        console.log({
-          email,
-          password,
-          name,
-          phone,
-          year_of_study,
-          role,
-          address,
-        });
-        // Clear form fields
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
-        setName("");
-        setPhone("");
-        setyear_of_study("");
-        setRole("");
-        setAddress("");
-
-        navigate("/login")
+        setShowOtpPopup(true); // Show OTP popup on successful registration
       })
       .catch((err) => {
         console.error("Registration failed:", err.response?.data || err.message);
         setError(
-          err.response?.data?.message ||
-            "Registration failed. Please try again."
+          err.response?.data?.message || "Registration failed. Please try again."
+        );
+      });
+  };
+
+  const handleVerifyOtp = (e) => {
+    e.preventDefault();
+
+    // Send OTP to backend for verification
+    axios
+      .post("/signup/verify-otp", { email, otp })
+      .then((response) => {
+        console.log("OTP verified successfully:", response.data);
+        setSuccessMsg("Registration and OTP verification successful! Please log in.");
+        setShowOtpPopup(false); // Close the OTP popup
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.error("OTP verification failed:", err.response?.data || err.message);
+        setError(
+          err.response?.data?.message || "OTP verification failed. Please try again."
         );
       });
   };
@@ -93,6 +96,7 @@ const Register = () => {
       <div className="register-box">
         <h2>Create Your Account</h2>
         <form onSubmit={handleRegister} className="register-form">
+          {/* Input fields for registration */}
           <label htmlFor="name">Name</label>
           <input
             id="name"
@@ -154,21 +158,6 @@ const Register = () => {
             <option value="2nd_btech">2nd Year B.Tech</option>
             <option value="3rd_btech">3rd Year B.Tech</option>
             <option value="4th_btech">4th Year B.Tech</option>
-            <option value="5th_barch">5th Year B.Arch</option>
-            <option value="1st_mtech">1st Year M.Tech</option>
-            <option value="2nd_mtech">2nd Year M.Tech</option>
-            <option value="1st_msc">1st Year M.Sc</option>
-            <option value="2nd_msc">2nd Year M.Sc</option>
-            <option value="1st_mca">1st Year MCA</option>
-            <option value="2nd_mca">2nd Year MCA</option>
-            <option value="3rd_mca">3rd Year MCA</option>
-            <option value="1st_mba">1st Year MBA</option>
-            <option value="2nd_mba">2nd Year MBA</option>
-            <option value="1st_phd">1st Year Ph.D.</option>
-            <option value="2nd_phd">2nd Year Ph.D.</option>
-            <option value="3rd_phd">3rd Year Ph.D.</option>
-            <option value="4th_phd">4th Year Ph.D.</option>
-            <option value="5th_phd">5th Year Ph.D.</option>
           </select>
 
           <label htmlFor="role">Role</label>
@@ -199,6 +188,36 @@ const Register = () => {
           </button>
         </form>
       </div>
+
+      {/* OTP Popup */}
+      {showOtpPopup && (
+        <div className="otp-popup">
+          <div className="otp-popup-content">
+            <h3>Verify Your Email</h3>
+            <p>An OTP has been sent to your email. Please enter it below to verify your account.</p>
+            <form onSubmit={handleVerifyOtp}>
+              <label htmlFor="otp">OTP</label>
+              <input
+                id="otp"
+                type="text"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                required
+              />
+              <button type="submit" className="otp-verify-btn">
+                Verify OTP
+              </button>
+              <button
+                type="button"
+                className="otp-cancel-btn"
+                onClick={() => setShowOtpPopup(false)}
+              >
+                Cancel
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
