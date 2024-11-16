@@ -1,34 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
+import { useAuth } from '../context/AuthContext';
+import { FaUserCircle } from 'react-icons/fa'; // Import an icon from react-icons
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [profilePhoto, setProfilePhoto] = useState("https://via.placeholder.com/150");
+  const [profilePhoto, setProfilePhoto] = useState(null);
   const [userData, setUserData] = useState({
     name: '',
     email: '',
     phone: '',
     year_of_study: '',
-    role: '',
     user_id: '',
+    address: ''
   });
-  const [myListings, setMyListings] = useState([]); // Store user's listings
+  const [myListings, setMyListings] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  const { role } = useAuth();
+
   useEffect(() => {
-    // Fetch user data from localStorage
     const storedData = {
       name: localStorage.getItem('name') || '',
       email: localStorage.getItem('email') || '',
       phone: localStorage.getItem('phone') || '',
       year_of_study: localStorage.getItem('year_of_study') || '',
-      role: localStorage.getItem('role') || '',
-      user_id: localStorage.getItem('user_id') || '', // Ensure user_id is stored in localStorage
+      user_id: localStorage.getItem('user_id') || '',
+      address: localStorage.getItem('address') || '',
     };
     setUserData(storedData);
 
-    // Fetch all products and filter by seller_id
     const fetchMyListings = async () => {
       try {
         const response = await fetch('http://13.54.149.207:3001/api/v0/open/get-products');
@@ -71,7 +73,7 @@ const Profile = () => {
 
   const handleProductClick = (product) => {
     setSelectedProduct(product);
-    setCurrentImageIndex(0); // Reset image index when a new product is selected
+    setCurrentImageIndex(0);
   };
 
   const closePopup = () => {
@@ -90,17 +92,46 @@ const Profile = () => {
     }
   };
 
+  const handleDeleteProduct = async (productId) => {
+    try {
+      console.log(productId)
+      const response = await fetch(`http://13.54.149.207:3001/api/v0/protected/remove-product?id=${productId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('accessToken'),
+        },
+      }); 
+
+      const data = await response.json();
+      if (response.ok) {
+        alert('Product deleted successfully');
+        setMyListings(myListings.filter((product) => product.id !== productId)); // Remove the product from the UI
+        closePopup();
+      } else {
+        alert(`Failed to delete product: ${data.message}`);
+      }
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      alert('An error occurred while deleting the product.');
+    }
+  };
+
   return (
     <div className="profile-container">
       <div className="profile-card">
         <div className="profile-avatar">
-          <img src={profilePhoto} alt="User Avatar" />
-          <input type="file" id="file-upload" onChange={handlePhotoUpload} />
+        {profilePhoto ? (
+        <img src={profilePhoto} alt="User Avatar" />
+        ) : (
+              <FaUserCircle className="default-avatar-icon" /> // Display default user icon
+        )}
+        <input type="file" id="file-upload" onChange={handlePhotoUpload} />
           <label htmlFor="file-upload" className="upload-label">Upload Photo</label>
         </div>
         <div className="profile-status">
           <h3>{userData.name || "User Name"}</h3>
-          <span className="status-badge">{userData.role || "Role"}</span>
+          <span className="status-badge">{role || "No role assigned"}</span>
           <p>Number of Items Listed: {myListings.length}</p>
           <button onClick={toggleEdit}>{isEditing ? "Save" : "Edit Profile"}</button>
         </div>
@@ -128,7 +159,11 @@ const Profile = () => {
             </div>
             <div>
               <label>Role</label>
-              <p>{userData.role}</p>
+              <p>{role}</p>
+            </div>
+            <div>
+              <label>Address</label>
+              <p>{userData.address}</p>
             </div>
           </div>
         </div>
@@ -165,6 +200,9 @@ const Profile = () => {
               />
               {selectedProduct.images.length > 1 && (
                 <div className="slider-controls">
+                  <button className="arrow" onClick={() => handleImageNavigation('prev')}>
+                    &#8249; Prev
+                  </button>
                   <button className="arrow" onClick={() => handleImageNavigation('next')}>
                     Next &#8250;
                   </button>
@@ -176,6 +214,12 @@ const Profile = () => {
             <p className="age">Age: {selectedProduct.age} months</p>
             <p className="condition">Condition: {selectedProduct.condition}/5</p>
             <p className="price">Price: ₹{selectedProduct.price}</p>
+            <button
+              onClick={() => handleDeleteProduct(selectedProduct.id)}
+              className="delete-button"
+            >
+              Delete Product
+            </button>
             <button onClick={closePopup} className="close-button">Close</button>
           </div>
         </div>

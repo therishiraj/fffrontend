@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // Import AuthContext
 import Categories from '../components/Categories';
 import './Shop.css';
 
@@ -11,7 +12,9 @@ const Shop = () => {
   const [isCategoryDropdownVisible, setIsCategoryDropdownVisible] = useState(false);
   const [isPriceDropdownVisible, setIsPriceDropdownVisible] = useState(false);
   const [filteredCategory, setFilteredCategory] = useState('All');
+  const [showBuyerPopup, setShowBuyerPopup] = useState(false); // New state for buyer popup
   const navigate = useNavigate();
+  const { role } = useAuth(); // Get the user's role from AuthContext
 
   const handleProductClick = (product) => {
     setSelectedProduct(product);
@@ -19,6 +22,7 @@ const Shop = () => {
 
   const closePopup = () => {
     setSelectedProduct(null);
+    setShowBuyerPopup(false); // Close the buyer popup
   };
 
   const handleImageNavigation = (direction) => {
@@ -32,10 +36,17 @@ const Shop = () => {
     }
   };
 
-
   const handleMeetSeller = () => {
     closePopup();
     navigate('/messages');
+  };
+
+  const handleBuyNowClick = (product) => {
+    if (role === 'seller') {
+      setShowBuyerPopup(true); // Show popup if the user is a seller
+    } else {
+      handleProductClick(product); // Allow buyers to proceed
+    }
   };
 
   const handleCategoryFilter = () => {
@@ -49,7 +60,7 @@ const Shop = () => {
   };
 
   const handleCategorySelect = (category) => {
-    setFilteredCategory(category);
+    setFilteredCategory(category); // Update the selected category
     setIsCategoryDropdownVisible(false);
   };
 
@@ -91,7 +102,7 @@ const Shop = () => {
   }, []);
 
   const displayedProducts = (sortedProducts.length > 0 ? sortedProducts : products).filter(
-    (product) => filteredCategory === 'All' || product.category === filteredCategory
+    (product) => filteredCategory === 'All' || product.category.toLowerCase() === filteredCategory.toLowerCase()
   );
 
   return (
@@ -117,11 +128,12 @@ const Shop = () => {
         {isCategoryDropdownVisible && (
           <div className="dropdown-menu">
             <button onClick={() => handleCategorySelect('All')}>All</button>
-            <button onClick={() => handleCategorySelect('Stationery')}>Stationery</button>
+            <button onClick={() => handleCategorySelect('Books')}>Books</button>
             <button onClick={() => handleCategorySelect('Kitchenware')}>Kitchenware</button>
             <button onClick={() => handleCategorySelect('Electronics')}>Electronics</button>
             <button onClick={() => handleCategorySelect('Furniture')}>Furniture</button>
-            <button onClick={() => handleCategorySelect('Home Decor')}>Home Decor</button>
+            <button onClick={() => handleCategorySelect('Other')}>Other</button>
+
           </div>
         )}
       </div>
@@ -135,7 +147,7 @@ const Shop = () => {
               <h3>{product.name}</h3>
               <p className="price">₹{product.price}</p>
               <p className="condition">Condition: {product.condition}/5</p>
-              <button className="add-to-cart" onClick={() => handleProductClick(product)}>
+              <button className="add-to-cart" onClick={() => handleBuyNowClick(product)}>
                 Buy now
               </button>
             </div>
@@ -162,6 +174,16 @@ const Shop = () => {
             <button onClick={handleMeetSeller} className="meet-seller">
               Meet the Seller
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Buyer Popup */}
+      {showBuyerPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Please register as a buyer to purchase this product.</p>
+            <button onClick={closePopup} className="close-button">Close</button>
           </div>
         </div>
       )}

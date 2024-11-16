@@ -31,7 +31,10 @@ const Login = () => {
         localStorage.setItem("phone",response.data.user.phone);
         localStorage.setItem("role",response.data.user.role);
         localStorage.setItem("year_of_study",response.data.user.year_of_study);
-        login(); 
+        localStorage.setItem("address",response.data.user.address)
+
+        const userRole = response.data.user.role;
+        login(userRole); 
         navigate("/home");
       })
       .catch((err) => {

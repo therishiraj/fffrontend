@@ -12,6 +12,7 @@ const PostItem = () => {
   const [conditionDescription, setConditionDescription] = useState('');
   const [files, setFiles] = useState([]);
   const [error, setError] = useState('');
+  const [isPopupVisible, setIsPopupVisible] = useState(false); // State for popup visibility
 
   const descriptions = ["Bad", "Decent", "Fair", "Good", "Excellent"];
 
@@ -55,7 +56,7 @@ const PostItem = () => {
           authorization: localStorage.getItem('accessToken'),
         },
       });
-      alert('Item posted successfully!');
+      setIsPopupVisible(true); // Show popup on success
       setItemName('');
       setItemAge('');
       setPrice('');
@@ -69,10 +70,15 @@ const PostItem = () => {
     }
   };
 
+  const closePopup = () => {
+    setIsPopupVisible(false);
+  };
+
   return (
     <div className="post-item-container">
       <h2>Post an Item</h2>
       <form onSubmit={handleSubmit} className="post-item-form">
+        {/* Form Fields */}
         <div className="form-group">
           <label className="label1">Item Name</label>
           <input
@@ -120,6 +126,8 @@ const PostItem = () => {
             <option value="books">Books</option>
             <option value="clothing">Clothing</option>
             <option value="furniture">Furniture</option>
+            <option value="kitchenware">Kitchenware</option>
+            <option value="other">Other</option>
           </select>
         </div>
 
@@ -165,6 +173,16 @@ const PostItem = () => {
           <button type="submit" className="submit-btn">Submit</button>
         </div>
       </form>
+
+      {/* Success Popup */}
+      {isPopupVisible && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Product listed successfully!</p>
+            <button onClick={closePopup} className="close-popup-btn">Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

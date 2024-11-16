@@ -3,16 +3,22 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-  background-color: #4A4E69; /* Updated background color to a professional, muted gray */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #343A40; /* Professional dark shade for a sleek appearance */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow for depth */
+  border-bottom: 2px solid #FFD166; /* Subtle border for visual distinction */
 }
 
 .nav-logo {
   font-size: 1.75em;
-  color: #FFD166; /* Updated logo color for visibility and brand distinction */
+  color: #FFD166; /* Vibrant logo color for visibility */
   font-weight: bold;
   padding: 8px 16px;
   border-radius: 6px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.nav-logo:hover {
+  transform: scale(1.1); /* Slight zoom effect on hover */
 }
 
 .logo-image {
@@ -27,21 +33,22 @@
 }
 
 .nav-links a {
-  color: #FFFFFF;
+  color: #FFFFFF; /* Clean and professional white text */
   font-size: 1.1em;
   font-weight: 500;
   text-decoration: none;
   padding: 10px 20px;
   border-radius: 6px;
   background-color: transparent;
-  transition: background-color 0.3s, color 0.3s;
-  display: block; /* Makes the link cover the entire area */
+  transition: background-color 0.3s, color 0.3s, transform 0.2s ease-in-out;
+  display: block; /* Covers the clickable area */
 }
 
 .nav-links a:hover {
-  background-color: #6A6E89;
-  color: #FFD166; /* Match accent color on hover for brand consistency */
+  background-color: #FFD166; /* Vibrant hover effect */
+  color: #343A40; /* Contrast for better readability */
   text-decoration: underline;
+  transform: scale(1.1); /* Slight zoom for better interactivity */
 }
 
 .nav-auth {
@@ -56,48 +63,58 @@
   border: none;
   cursor: pointer;
   border-radius: 6px;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
-/* Updated hover effect for login button */
 .login-btn {
-  background-color: #FFFFFF;
-  color: #4A4E69; /* Matching main background color for a cohesive look */
+  background-color: #FFD166;
+  color: #343A40; /* Complementary color for a cohesive design */
   font-weight: 600;
-}
-.login-btn:hover {
-  background-color: #4A4E69;
-  color: #FFD166;
-  border: 1px solid #FFD166; /* Border on hover for visual feedback */
 }
 
-/* Updated hover effect for register button */
-.register-btn {
-  background-color: #FFD166;
-  color: #4A4E69;
-  font-weight: 600;
-}
-.register-btn:hover {
-  background-color: #4A4E69;
-  color: #FFD166;
+.login-btn:hover {
+  background-color: #FFC75F; /* Softer hover color */
+  color: #212529;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
   border: 1px solid #FFD166;
 }
 
-/* logout button*/
-.logout-btn {
+.register-btn {
+  background-color: #28A745; /* Distinct green for registration */
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.register-btn:hover {
+  background-color: #218838; /* Slightly darker green on hover */
+  color: #FFFFFF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  border: 1px solid #218838;
+}
+
+.dropdown-menu .logout-btn {
+  all: unset; /* Resets all inherited styles */
   background: none;
   border: none;
-  color: #333;
+  color: #6C757D; /* Neutral shade for a clean look */
   width: 100%;
   text-align: left;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  font-size: 1em;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease-in-out, color 0.3s;
 }
 
-.logout-btn:hover {
-  background-color: #f2f2f2;
+.dropdown-menu .logout-btn:hover {
+  background-color: #FFD166;
+  color: #343A40; /* High contrast for readability */
 }
 
-/* User menu styles */
 .user-menu {
   position: relative;
   display: inline-block;
@@ -110,73 +127,88 @@
   cursor: pointer;
   color: #FFD166; /* Accent color for easy identification */
   padding: 0 10px;
+  transition: transform 0.3s ease-in-out, color 0.3s;
 }
 
-/* new*/
+.menu-icon:hover {
+  transform: rotate(20deg); /* Subtle rotation effect on hover */
+  color: #FFC75F;
+}
+
 .profile-icon {
   cursor: pointer;
-  color: #555;
+  color: #FFD166;
   border-radius: 50%;
-}
-.user-profile {
-  position: relative;
+  transition: transform 0.2s ease-in-out, background-color 0.3s;
 }
 
+.profile-icon:hover {
+  transform: scale(1.2); /* Interactive zoom */
+  background-color: #FFC75F;
+}
+
+.user-profile {
+  position: relative;
+  overflow: visible;
+}
+
+/* Dropdown Menu */
 .dropdown-menu {
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: white;
-  border: 1px solid #ddd;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
-  padding: 15px 0;
+  background-color: #FFFFFF;
+  border: 1px solid #DDD;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow for better visibility */
+  padding: 10px 0;
   border-radius: 8px;
-  width: 220px;
-  z-index: 9999;
-  display: none;
+  width: 200px;
+  z-index: 9999; /* Ensure it's on top of other elements */
+  display: block;
+  pointer-events: auto;
+  animation: fadeIn 0.3s ease-in-out; /* Smooth fade-in effect */
 }
 
+/* Dropdown Item */
 .dropdown-item {
   display: flex;
   align-items: center;
-  padding: 8px;
   padding: 10px 15px;
-  color: #4A4E69;
-  color: darkblue; /* Light text color */
+  color: #6C757D; /* Neutral color for text */
   font-size: 1em;
   font-weight: 500;
   text-decoration: none;
-  text-decoration: none;
   border-radius: 6px;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease-in-out, color 0.3s ease-in-out;
 }
 
 .dropdown-item:hover {
-  background-color: Black; /* Darker background on hover */
-  color: #FFFFFF; /* White text on hover */
+  background-color: #FFD166; /* Vibrant hover effect */
+  color: #343A40; /* Contrast for better readability */
 }
 
-/* Dropdown Menu 
-.dropdown-menu {
-  position: absolute;
-  right: 0;
-  top: 100%;
-  background-color: #FFFFFF;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  width: 150px;
-  border-radius: 4px;
-  z-index: 1000;
+/* Smooth fade-in animation for dropdown */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.dropdown-item {
-  display: block;
-  padding: 8px;
-  color: #4A4E69; 
+/* Disabled Link Styling */
+.disabled-link {
+  color: #ADB5BD; /* Neutral gray for disabled links */
+  cursor: not-allowed;
   text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 6px;
 }
 
-.dropdown-item:hover {
-  background-color: #F0F0F0;
+.disabled-link:hover {
+  background-color: transparent;
+  color: #ADB5BD;
 }
-*/
