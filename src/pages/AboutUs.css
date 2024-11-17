@@ -32,7 +32,8 @@
   z-index: 1;
 }
 
-.aboutus-hero h1, .aboutus-hero p {
+.aboutus-hero h1,
+.aboutus-hero p {
   position: relative;
   z-index: 2;
 }
@@ -146,7 +147,6 @@
   transform: scale(1.05);
 }
 
-/* Image Upload Area */
 .aboutus-team-list li .team-image {
   width: 100px;
   height: 100px;
@@ -207,6 +207,7 @@
     padding: 12px 25px;
   }
 }
+
 /* Ensure the dropdown menu appears above the overlay */
 .aboutus-hero::after {
   z-index: 0; /* Lower this value if needed */

@@ -4,32 +4,45 @@
   align-items: center;
   min-height: 100vh;
   background: linear-gradient(135deg, #4a90e2, #50a684);
+  padding: 1rem; /* Add padding to prevent clipping on smaller screens */
 }
 
 .register-box {
   background-color: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
+  padding: 2.5rem 3rem; /* Add horizontal padding for uniform spacing */
+  border-radius: 10px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+  max-width: 500px; /* Set a reasonable width */
   width: 100%;
+  margin: 0 auto; /* Center the form horizontally */
+}
+
+.register-box h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
 }
 
 .register-form label {
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: 1rem;
   color: #333;
 }
 
 .register-form input,
 .register-form select,
 .register-form textarea {
-  width: 100%;
-  padding: 0.8rem;
-  margin-top: 5px;
-  margin-bottom: 15px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
+  width: calc(100% - 1rem); /* Maintain consistent padding inside the container */
+  padding: 0.9rem;
+  margin: 0.5rem auto 1rem auto; /* Auto margins for equal spacing */
+  border-radius: 5px;
+  border: 1px solid #ccc;
   transition: all 0.3s ease;
 }
 
@@ -38,32 +51,48 @@
 .register-form textarea:focus {
   border-color: #4a90e2;
   outline: none;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5); /* Subtle focus effect */
 }
 
 .register-btn {
   width: 100%;
-  padding: 0.8rem;
+  padding: 1rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   background-color: #4a90e2;
   color: #fff;
   font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .register-btn:hover {
   background-color: #3880c2;
+  transform: scale(1.02); /* Subtle scaling effect */
 }
 
 .error-message {
   color: #e74c3c;
-  margin-top: -10px;
-  margin-bottom: 10px;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
 }
 
 .email-note {
   font-size: 0.9em;
-  color: #888;
-  margin-bottom: 10px;
+  color: #555; /* Darken note for better visibility */
+  margin-bottom: 1rem;
+}
+
+textarea {
+  resize: vertical; /* Allow vertical resizing only */
+  min-height: 80px; /* Set a minimum height */
+}
+
+@media (max-width: 768px) {
+  .register-box {
+    padding: 2rem; /* Reduce padding for smaller screens */
+    max-width: 90%; /* Ensure responsiveness */
+  }
 }

@@ -1,100 +1,98 @@
 .contact-us-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #2F3B52; /* Dark background */
-    padding: 40px;
-    color: white;
-    height: 100vh;
-    justify-content: space-between; /* Ensure space between header, form, and footer */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #2F3B52; /* Dark background */
+  padding: 40px;
+  color: white;
+  height: 100vh;
+  justify-content: space-between; /* Ensure space between header, form, and footer */
+}
+
+.contact-us-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.contact-us-header h1 {
+  font-size: 3em; /* Larger heading */
+  font-weight: bold;
+  color: white;
+}
+
+.contact-us-header p {
+  font-size: 1.5em; /* Larger description text */
+  margin-top: 10px;
+  color: white
+}
+
+.contact-us-form {
+  background-color: #1F2633; /* Darker background for the form */
+  padding: 40px;
+  border-radius: 8px;
+  width: 80%; /* Wider form container */
+  max-width: 1200px; /* Maximum width */
+  margin-bottom: 30px; /* Added margin-bottom for space between the form and footer */
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  color: white;
+}
+
+input[type="text"],
+input[type="email"],
+textarea,
+select {
+  width: 100%;
+  padding: 15px; /* Increased padding for wider fields */
+  margin-top: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+}
+
+textarea {
+  height: 150px;
+}
+
+.submit-btn {
+  background-color: #F9A828; /* Yellow color for the button */
+  color: white;
+  padding: 16px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%; /* Make the button span full width */
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #e89d1d;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .contact-us-container {
+    padding: 20px;
   }
-  
-  .contact-us-header {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
+
   .contact-us-header h1 {
-    font-size: 3em; /* Larger heading */
-    font-weight: bold;
-    color: white;
+    font-size: 2.5em;
   }
-  
-  .contact-us-header p {
-    font-size: 1.5em; /* Larger description text */
-    margin-top: 10px;
-    color: white
-  }
-  
+
   .contact-us-form {
-    background-color: #1F2633; /* Darker background for the form */
-    padding: 40px;
-    border-radius: 8px;
-    width: 80%; /* Wider form container */
-    max-width: 1200px; /* Maximum width */
-    margin-bottom: 30px; /* Added margin-bottom for space between the form and footer */
+    width: 100%; /* Ensure form takes full width on smaller screens */
+    padding: 20px;
+    margin-bottom: 40px; /* Larger margin for mobile to create more space */
   }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    font-weight: bold;
-    color: white;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  textarea,
-  select {
-    width: 100%;
-    padding: 15px; /* Increased padding for wider fields */
-    margin-top: 8px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 1px solid #e0e0e0;
-  }
-  
-  textarea {
-    height: 150px;
-  }
-  
   .submit-btn {
-    background-color: #F9A828; /* Yellow color for the button */
-    color: white;
-    padding: 16px 30px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%; /* Make the button span full width */
-    transition: background-color 0.3s;
+    padding: 14px 25px;
+    font-size: 14px;
   }
-  
-  .submit-btn:hover {
-    background-color: #e89d1d;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 600px) {
-    .contact-us-container {
-      padding: 20px;
-    }
-  
-    .contact-us-header h1 {
-      font-size: 2.5em;
-    }
-  
-    .contact-us-form {
-      width: 100%; /* Ensure form takes full width on smaller screens */
-      padding: 20px;
-      margin-bottom: 40px; /* Larger margin for mobile to create more space */
-    }
-  
-    .submit-btn {
-      padding: 14px 25px;
-      font-size: 14px;
-    }
-  }
-  
+}

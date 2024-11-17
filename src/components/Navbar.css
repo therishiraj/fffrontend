@@ -4,17 +4,23 @@
   justify-content: space-around;
   align-items: center;
   padding: 15px 30px;
-  background-color: #4A4E69;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #343A40; /* Professional dark shade for a sleek appearance */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow for depth */
+  border-bottom: 2px solid #FFD166; /* Subtle border for visual distinction */
 }
 
 /* Logo Section */
 .nav-logo {
   font-size: 1.75em;
+  color: #FFD166; /* Vibrant logo color for visibility */
   font-weight: bold;
-  color: #FFD166;
   padding: 8px 16px;
   border-radius: 6px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.nav-logo:hover {
+  transform: scale(1.1); /* Slight zoom effect on hover */
 }
 
 .logo-image {
@@ -26,33 +32,31 @@
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 10px;
+  gap: 20px;
 }
 
 .nav-links a {
-  color: #FFFFFF;
+  color: #FFFFFF; /* Clean and professional white text */
   font-size: 1.1em;
   font-weight: 500;
   text-decoration: none;
   padding: 10px 20px;
   border-radius: 6px;
   background-color: transparent;
-  transition: background-color 0.3s, color 0.3s;
-  display: block; /* Makes the link cover the entire area */
+  transition: background-color 0.3s, color 0.3s, transform 0.2s ease-in-out;
+  display: block; /* Covers the clickable area */
 }
 
-/* Hover effect with full background */
 .nav-links a:hover {
-  background-color: #6A6E89; /* Full background color on hover */
-  color: #FFD166;
-  text-decoration: none;
+  background-color: #FFD166; /* Vibrant hover effect */
+  color: #343A40; /* Contrast for better readability */
+  text-decoration: underline;
+  transform: scale(1.1); /* Slight zoom for better interactivity */
 }
 
-
-/* Authentication Buttons */
 .nav-auth {
   display: flex;
-  gap: 15px;
+  gap: 10px;
 }
 
 .login-btn,
@@ -60,35 +64,60 @@
   font-size: 1em;
   padding: 10px 20px;
   border: none;
-  border-radius: 6px;
   cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
 .login-btn {
-  background-color: #FFFFFF;
-  color: #4A4E69;
+  background-color: #FFD166;
+  color: #343A40; /* Complementary color for a cohesive design */
   font-weight: 600;
 }
 
 .login-btn:hover {
-  background-color: #4A4E69;
-  color: #FFD166;
+  background-color: #FFC75F; /* Softer hover color */
+  color: #212529;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
   border: 1px solid #FFD166;
 }
 
 .register-btn {
-  background-color: #FFD166;
-  color: #4A4E69;
+  background-color: #28A745; /* Distinct green for registration */
+  color: #FFFFFF;
   font-weight: 600;
 }
 
 .register-btn:hover {
-  background-color: #4A4E69;
-  color: #FFD166;
-  border: 1px solid #FFD166;
+  background-color: #218838; /* Slightly darker green on hover */
+  color: #FFFFFF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  border: 1px solid #218838;
 }
 
-/* User Menu */
+.dropdown-menu .logout-btn {
+  all: unset; /* Resets all inherited styles */
+  background: none;
+  border: none;
+  color: #6C757D; /* Neutral shade for a clean look */
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  font-size: 1em;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease-in-out, color 0.3s;
+}
+
+.dropdown-menu .logout-btn:hover {
+  background-color: #FFD166;
+  color: #343A40; /* High contrast for readability */
+}
+
 .user-menu {
   position: relative;
   display: inline-block;
@@ -101,6 +130,29 @@
   cursor: pointer;
   color: #FFD166;
   padding: 0 10px;
+  transition: transform 0.3s ease-in-out, color 0.3s;
+}
+
+.menu-icon:hover {
+  transform: rotate(20deg); /* Subtle rotation effect on hover */
+  color: #FFC75F;
+}
+
+.profile-icon {
+  cursor: pointer;
+  color: #FFD166;
+  border-radius: 50%;
+  transition: transform 0.2s ease-in-out, background-color 0.3s;
+}
+
+.profile-icon:hover {
+  transform: scale(1.2); /* Interactive zoom */
+  background-color: #FFC75F;
+}
+
+.user-profile {
+  position: relative;
+  overflow: visible;
 }
 
 /* Dropdown Menu */
@@ -109,47 +161,57 @@
   top: 100%;
   right: 0;
   background-color: #FFFFFF;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
-  padding: 15px 0;
-  width: 220px;
+  border: 1px solid #DDD;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow for better visibility */
+  padding: 10px 0;
   border-radius: 8px;
-  z-index: 9999; /* Very high z-index to ensure it appears on top */
-  display: none;
-}
-
-.user-menu:hover .dropdown-menu {
+  width: 200px;
+  z-index: 9999; /* Ensure it's on top of other elements */
   display: block;
+  pointer-events: auto;
+  animation: fadeIn 0.3s ease-in-out; /* Smooth fade-in effect */
 }
 
-/* Dropdown Item Styling */
+/* Dropdown Item */
 .dropdown-item {
   display: flex;
   align-items: center;
   padding: 10px 15px;
-  color: darkblue; /* Light text color */
+  color: #6C757D; /* Neutral color for text */
   font-size: 1em;
   font-weight: 500;
   text-decoration: none;
   border-radius: 6px;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease-in-out, color 0.3s ease-in-out;
 }
 
 .dropdown-item:hover {
-  background-color: Black; /* Darker background on hover */
-  color: #FFFFFF; /* White text on hover */
+  background-color: #FFD166; /* Vibrant hover effect */
+  color: #343A40; /* Contrast for better readability */
 }
 
-/* Optional icon styling if using icons */
-.dropdown-item i {
-  margin-right: 10px;
-  font-size: 1.2em; /* Adjust icon size */
-  color: #8B949E; /* Light gray for icons */
+/* Smooth fade-in animation for dropdown */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Divider between sections */
-.dropdown-divider {
-  height: 1px;
-  background-color: #444C56;
-  margin: 8px 0;
-  border: none;
+/* Disabled Link Styling */
+.disabled-link {
+  color: #ADB5BD; /* Neutral gray for disabled links */
+  cursor: not-allowed;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+}
+
+.disabled-link:hover {
+  background-color: transparent;
+  color: #ADB5BD;
 }
