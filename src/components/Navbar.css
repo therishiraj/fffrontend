@@ -24,9 +24,12 @@
 }
 
 .logo-image {
-  height: 70px;
-  width: 110px;
+  height: 90px; /* Adjust the height to a reasonable size */
+  width: auto; /* Maintain aspect ratio */
+  max-width: 250px; /* Set a maximum width to avoid it being too large */
+  object-fit: contain; /* Ensure the logo scales properly */
 }
+
 
 /* Navigation Links */
 .nav-links {
@@ -215,3 +218,44 @@
   background-color: transparent;
   color: #ADB5BD;
 }
+
+.nav-notification {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #FFD700; /* Bright yellow for the icon */
+  font-size: 1.5em; /* Icon size */
+  margin-right: 20px; /* Space between notification and profile dropdown */
+  transition: transform 0.2s ease-in-out, color 0.3s;
+}
+
+.nav-notification:hover {
+  color: #FFC107; /* Slightly lighter yellow on hover */
+  transform: scale(1.2); /* Zoom effect on hover */
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red; /* Bold red for the badge */
+  color: white; /* White text for better contrast */
+  border-radius: 50%;
+  font-size: 0.8em;
+  font-weight: bold;
+  padding: 2px 6px;
+  min-width: 18px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid white; /* White border for clarity */
+}
+.nav-icons {
+  display: flex; /* Align children (notification and profile icons) horizontally */
+  align-items: center; /* Vertically align icons */
+  gap: 15px; /* Add spacing between the icons */
+}
+

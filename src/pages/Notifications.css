@@ -1,0 +1,108 @@
+.notifications-page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    max-width: 800px; /* Wider layout for notifications */
+    margin: 0 auto;
+  }
+  
+  .notifications-page h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .clear-notifications-btn {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .clear-notifications-btn:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  
+  .clear-notifications-btn:hover:not(:disabled) {
+    background-color: #ff4a4a;
+  }
+  
+  .notifications-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .notification-item {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center; /* Align icon, message, and button horizontally */
+  }
+  
+  .notification-item.read {
+    background-color: #e0ffe0; /* Light green for read notifications */
+  }
+  
+  .notification-content {
+    display: flex;
+    align-items: center;
+    width: 100%; /* Make sure the content stretches across the box */
+  }
+  
+  .notification-icon {
+    flex-shrink: 0; /* Prevent the icon from shrinking */
+    margin-right: 15px; /* Space between icon and text */
+    color: #ffd700; /* Yellow color for the icon */
+  }
+  
+  .notification-details {
+    flex-grow: 1; /* Let the details take the available space */
+  }
+  
+  .notification-details p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .notification-details small {
+    display: block;
+    margin-top: 5px;
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .mark-as-read-btn {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .mark-as-read-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .no-notifications {
+    font-size: 18px;
+    color: #999;
+    text-align: center;
+  }
+  

@@ -9,9 +9,9 @@ import AboutUs from './pages/AboutUs';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
-import Messages from './pages/Messages';
+import Messages from './pages/Requests';
 import Transactions from './pages/Transactions';
-import Saved from './pages/Saved';
+import MyOrders from './pages/MyOrders'; // Updated to MyOrders
 import Profile from './pages/Profile';
 import PostItem from './pages/PostItem';
 import ContactUs from './pages/ContactUs';
@@ -19,6 +19,8 @@ import AdminLogin from './pages/AdminLogin';
 import AdminPanel from './pages/AdminPanel';
 import ReviewUsers from './pages/ReviewUsers';
 import ReviewItems from './pages/ReviewItems';
+import Notifications from './pages/Notifications';
+import Requests from './pages/Requests';
 import './App.css';
 
 import { useAuth } from './context/AuthContext';
@@ -37,31 +39,29 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} /> {/* Default route to LandingPage */}
           <Route path="/home" element={<Home />} /> {/* Separate route for Home */}
-          <Route path="/shop" element={<ProtectedRoute>
-                <Shop />
-            </ProtectedRoute>} />
-          <Route path="/about-us" element={<ProtectedRoute>
-                <AboutUs />
-            </ProtectedRoute>} />
+          <Route path="/shop" element={<Shop />} />
+
+          <Route path="/about-us" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register/>}/>
+          <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/messages" element={<ProtectedRoute>
-                <Messages />
+              <Messages />
             </ProtectedRoute>} />
           <Route path="/transactions" element={<ProtectedRoute>
-                <Transactions />
+              <Transactions />
             </ProtectedRoute>} />
-          <Route path="/saved" element={<ProtectedRoute>
-                <Saved />
+          <Route path="/my-orders" element={<ProtectedRoute>
+              <MyOrders /> {/* Updated here */}
             </ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute>
-                <Profile />
+              <Profile />
             </ProtectedRoute>} />
-          <Route path="/post-item" element={<ProtectedRoute>
-                <PostItem />
-            </ProtectedRoute>} />
+          <Route path="/post-item" element={<PostItem />} />
+          <Route path="/requests" element={<Requests />} /> {/* Route for Requests */}
+
           <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/notifications" element={<Notifications />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/admin-panel" element={<AdminPanel />} />
           <Route path="/review-users" element={<ReviewUsers />} />
@@ -74,3 +74,4 @@ function App() {
 }
 
 export default App;
+

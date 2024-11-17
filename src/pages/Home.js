@@ -8,7 +8,7 @@ const Home = () => {
     <div className="home">
       <section className="hero-banner">
         <div className="overlay"></div> {/* Overlay to create the fade effect */}
-        <h1>Welcome to Our Store</h1>
+        <h1>Welcome to Fresh-Finds</h1>
         <p>Your one-stop shop for amazing products</p>
         <Link to="/shop" className="shop-now-btn">Shop Now</Link>
       </section>

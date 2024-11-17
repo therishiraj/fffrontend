@@ -1,0 +1,121 @@
+.my-orders-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  max-width: 1200px; /* Wider layout */
+  margin: 0 auto;
+}
+
+.my-orders-page h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Orders List */
+.orders-list {
+  display: flex;
+  flex-wrap: wrap; /* Wrap items when the width exceeds */
+  gap: 20px; /* Add space between items */
+  padding: 0;
+  list-style: none;
+}
+
+/* Each Order Item */
+.order-item {
+  flex: 1 1 calc(33.333% - 20px); /* 3 items per row */
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex; /* Use Flexbox for layout */
+  align-items: center; /* Vertically align items */
+  justify-content: flex-start; /* Align items to the left */
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 300px; /* Minimum width for smaller items */
+  height: 200px; /* Fixed height for consistency */
+  text-align: left;
+}
+
+/* Photo Section */
+.order-photo {
+  flex-shrink: 0; /* Prevent the photo from shrinking */
+  width: 150px; /* Fixed width for the photo */
+  height: 150px; /* Fixed height for the photo */
+  margin-right: 15px; /* Add spacing between the image and text */
+}
+
+.order-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain aspect ratio and crop if needed */
+  border-radius: 5px; /* Rounded corners for a clean look */
+}
+
+/* Order Details Section */
+.order-details {
+  display: flex;
+  flex-direction: column; /* Stack the text content vertically */
+  justify-content: space-between; /* Distribute items evenly */
+  flex-grow: 1; /* Ensure the details section grows to fill the available space */
+}
+
+.item-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.purchase-date {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.order-status {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+  width: fit-content;
+  margin-top: auto; /* Push the status badge to the bottom */
+}
+
+.order-status.delivered {
+  background-color: #4caf50;
+  color: white;
+}
+
+.order-status.in-transit {
+  background-color: #ffc107;
+  color: white;
+}
+
+.order-status.cancelled {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .order-item {
+    flex: 1 1 calc(50% - 20px); /* 2 items per row */
+    height: 220px; /* Adjusted height for medium screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .order-item {
+    flex: 1 1 calc(100% - 20px); /* 1 item per row */
+    height: auto; /* Allow flexible height on small screens */
+    flex-direction: column; /* Stack photo and details vertically */
+    align-items: center; /* Center align items for smaller screens */
+  }
+
+  .order-photo {
+    margin-bottom: 10px; /* Add spacing below the image */
+    margin-right: 0; /* Remove side margin */
+  }
+}

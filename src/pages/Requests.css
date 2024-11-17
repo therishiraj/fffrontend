@@ -1,0 +1,322 @@
+/* General Page Layout */
+.requests-page {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 300px;
+  background: #ffffff;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.listing-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listing {
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.listing:hover {
+  background-color: #eaf6ff;
+  transform: scale(1.02);
+}
+
+.listing.active {
+  background-color: #d9f2ff;
+  border-color: #007bff;
+}
+
+.listing.unavailable {
+  color: #999;
+  background-color: #f2f2f2;
+  cursor: not-allowed;
+}
+
+/* Requests Area */
+.requests-area {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.requests-area h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.listing-description {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.listing-status {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.listing-status.delisted {
+  color: #999;
+  font-style: italic;
+}
+
+/* Requests List */
+.requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.request {
+  background: #ffffff;
+  padding: 15px 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.6s ease-in-out;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.request:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.request p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #444;
+}
+
+.request strong {
+  color: #333;
+}
+
+.request .masked-email {
+  font-style: italic;
+  color: #999;
+}
+
+/* Actions Section */
+.actions {
+  margin-top: 10px;
+}
+
+.actions button {
+  padding: 8px 15px;
+  margin-right: 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.actions button:first-child {
+  background-color: #28a745;
+  color: white;
+}
+
+.actions button:first-child:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.actions button:last-child {
+  background-color: #dc3545;
+  color: white;
+}
+
+.actions button:last-child:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+/* Re-list Button */
+.relist-button {
+  padding: 10px 15px;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.relist-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    box-shadow: none;
+    padding: 15px;
+  }
+
+  .requests-area {
+    padding: 15px;
+  }
+
+  .request {
+    padding: 10px;
+  }
+
+  .actions button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .listing {
+    font-size: 14px;
+  }
+}
+/* Delisted Listings */
+.listing.unavailable {
+  background-color: #f7f7f7;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.listing-status.delisted {
+  color: #999;
+  font-style: italic;
+}
+
+/* Re-list Button */
+.relist-button {
+  padding: 10px 15px;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.relist-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Modal Styling */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Slightly darker overlay for better focus */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeInBackground 0.4s ease-in-out;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Softer shadow for better depth */
+  text-align: center;
+  animation: fadeInModal 0.5s ease-in-out;
+  width: 90%; /* Responsive modal width */
+  max-width: 500px; /* Ensure it doesn't get too large */
+}
+
+.modal-content p {
+  font-size: 18px;
+  color: #444;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Space between buttons */
+}
+
+.modal-actions button {
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  font-weight: bold;
+}
+
+.modal-actions button:first-child {
+  background-color: #28a745;
+  color: white;
+}
+
+.modal-actions button:first-child:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.modal-actions button:last-child {
+  background-color: #dc3545;
+  color: white;
+}
+
+.modal-actions button:last-child:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../assets/logo2.png';
 import { useAuth } from '../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faBell } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
   const { isLoggedIn, role, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showPopup, setShowPopup] = useState(false); // State for the popup
-  const menuRef = useRef(null); // Reference for the dropdown menu
+  const [showPopup, setShowPopup] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const menuRef = useRef(null);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -18,12 +20,26 @@ const Navbar = () => {
 
   const handlePostItemClick = (event) => {
     if (role !== "seller" && role !== "buyer+seller") {
-      event.preventDefault(); // Prevent navigation
-      setShowPopup(true); // Show popup if role is not seller or buyer+seller
+      event.preventDefault();
+      setShowPopup(true);
     }
   };
 
-  // Close the menu when clicking outside
+  useEffect(() => {
+    const fetchNotifications = () => {
+      fetch('/api/notifications')
+        .then((res) => res.json())
+        .then((data) => setNotifications(data))
+        .catch((err) => console.error(err));
+    };
+
+    fetchNotifications();
+
+    const interval = setInterval(fetchNotifications, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -50,9 +66,9 @@ const Navbar = () => {
           <li><Link to="/home">Home</Link></li>
           <li>
             {role === "seller" || role === "buyer+seller" ? (
-              <Link to="/post-item">Post an Item</Link> // Allow navigation for seller or buyer+seller
+              <Link to="/post-item">Post an Item</Link> 
             ) : (
-              <Link to="#" onClick={handlePostItemClick} className="disabled-link">Post an Item</Link> // Trigger popup for others
+              <Link to="#" onClick={handlePostItemClick} className="disabled-link">Post an Item</Link> 
             )}
           </li>
           <li><Link to="/shop">Shop</Link></li>
@@ -67,22 +83,37 @@ const Navbar = () => {
               <Link to="/register" className="register-btn">Register</Link>
             </>
           ) : (
-            <div className="user-profile" ref={menuRef}>
-              <FontAwesomeIcon
-                icon={faUserCircle}
-                size="2x"
-                onClick={toggleMenu}
-                className="profile-icon"
-              />
-              {isMenuOpen && (
-                <div className="dropdown-menu">
-                  <Link to="/messages" className="dropdown-item">Messages</Link>
+            <div className="nav-icons">
+              {/* Notification Icon */}
+              <div
+                className="nav-notification"
+                onClick={() => navigate('/notifications')}
+                title="Notifications"
+              >
+                <FontAwesomeIcon icon={faBell} size="lg" />
+                {notifications.length > 0 && (
+                  <span className="notification-badge">{notifications.length}</span>
+                )}
+              </div>
+
+              {/* Profile Icon */}
+              <div className="user-profile" ref={menuRef}>
+                <FontAwesomeIcon
+                  icon={faUserCircle}
+                  size="2x"
+                  onClick={toggleMenu}
+                  className="profile-icon"
+                />
+                {isMenuOpen && (
+                  <div className="dropdown-menu">
+                  <Link to="/requests" className="dropdown-item">Requests</Link>
                   <Link to="/transactions" className="dropdown-item">Transactions</Link>
-                  <Link to="/saved" className="dropdown-item">Saved</Link>
+                  <Link to="/my-orders" className="dropdown-item">My Orders</Link>
                   <Link to="/profile" className="dropdown-item">Profile</Link>
                   <button onClick={logout} className="dropdown-item logout-btn">Logout</button>
                 </div>
-              )}
+                )}
+              </div>
             </div>
           )}
         </div>

@@ -161,7 +161,7 @@ const Shop = () => {
             <h3>{selectedProduct.name}</h3>
             <div className="image-slider">
               <img src={selectedProduct.images[currentImageIndex]} alt={`Product ${currentImageIndex + 1}`} />
-              <button className="arrow right-arrow" onClick={() => handleImageNavigation('next')}>
+              <button className="arrow right-arrow" onClick={() => handleImageNavigation('next')}>I am interested
                 &#8250;
               </button>
             </div>

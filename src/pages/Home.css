@@ -1,12 +1,13 @@
 .home {
   font-family: Arial, sans-serif;
+  animation: fadeIn 1s ease-in-out; /* Fade-in animation for the home page */
 }
 
 .hero-banner {
   position: relative;
-  background: url('../assets/hostel.jpg') no-repeat center center; /* Set the image as the background */
+  background: url('../assets/hostel.jpg') no-repeat center center; /* Keep the image as the main background */
   background-size: cover; /* Ensure the image covers the entire section */
-  color: #FFFFFF; /* White text for strong contrast */
+  color: #FFFFFF; /* White text for contrast */
   text-align: center;
   padding: 60px 20px;
   overflow: hidden; /* Prevent content from overflowing */
@@ -20,82 +21,134 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
+  background: rgba(0, 0, 0, 0.3); /* Subtle black overlay with 30% opacity */
   z-index: 0; /* Ensure it is below interactive elements */
 }
 
 .hero-banner h1 {
   font-size: 3em;
   margin-bottom: 10px;
-  color:white; /* Slightly darker shade to contrast the background */
+  color: white; /* Keep it white for better readability */
   z-index: 2; /* Ensure the heading is above the overlay */
-  position: relative; /* Keep it above the overlay */
+  position: relative;
+  animation: fadeIn 1s ease-in-out 0.3s; /* Delayed fade-in animation */
 }
 
 .hero-banner p {
   font-size: 1.5em;
-  color: white; /* Softer text color for readability */
-  z-index: 2; /* Ensure the paragraph is above the overlay */
-  position: relative; /* Keep it above the overlay */
+  color: white; /* Keep it white for better readability */
+  z-index: 2;
+  position: relative;
+  animation: fadeIn 1s ease-in-out 0.5s; /* Delayed fade-in animation */
 }
 
 .shop-now-btn {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #FF8C42; /* Distinct color for the button */
+  background-color: #FF8C42; /* Keep the button color vibrant */
   color: #FFFFFF;
   text-decoration: none;
   border-radius: 5px;
   font-size: 1em;
   cursor: pointer;
   text-align: center;
-  transition: background-color 0.3s, color 0.3s;
-  z-index: 2; /* Ensure the button is above the overlay */
-  position: relative; /* Keep it above the overlay */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  z-index: 2;
+  position: relative;
 }
 
 .shop-now-btn:hover {
-  background-color: #FFD166;
+  background-color: #FFD166; /* Slight hover effect */
   color: #4A4E69;
+  transform: scale(1.1); /* Button enlarges slightly on hover */
 }
 
 .featured-section {
   padding: 40px 20px;
   text-align: center;
-  background-color: #FFF5E1; /* Warm, light background to differentiate from navbar */
+  background-color: #FFF5E1;
+  animation: fadeIn 1s ease-in-out 0.5s; /* Fade-in animation */
 }
 
 .featured-section h2 {
   font-size: 2em;
-  color: #FF8C42; /* Matching hero banner button color */
+  color: #FF8C42;
   margin-bottom: 20px;
+  animation: slideInFromBottom 1s ease-in-out; /* Slide in from the bottom */
 }
 
 .testimonials {
   padding: 40px 20px;
-  background-color: #F7F7F7; /* Neutral background for testimonials */
+  background-color: #F7F7F7;
+  animation: fadeIn 1s ease-in-out 0.8s; /* Fade-in with slight delay */
 }
 
 .testimonial-cards {
   display: flex;
   justify-content: center;
   gap: 20px;
+  flex-wrap: wrap; /* Ensure responsiveness */
 }
 
 .testimonial-card {
   background: #FFFFFF;
   border: 1px solid #E0E0E0;
   padding: 20px;
-  max-width: 200px;
+  max-width: 250px; /* Slightly larger card size */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: #4A4E69;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Add transition for smooth scaling */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  animation: slideInFromBottom 1s ease-in-out; /* Slide up animation */
 }
 
 .testimonial-card:hover {
   transform: scale(1.05); /* Slightly scale the card when hovered */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhance the shadow on hover for a more elevated effect */
 }
-.hero-banner::before {
-  z-index: 0; /* Lowered z-index to ensure dropdown menu appears on top */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .hero-banner h1 {
+    font-size: 2.5em;
+  }
+
+  .hero-banner p {
+    font-size: 1.2em;
+  }
+
+  .testimonial-cards {
+    flex-direction: column; /* Stack testimonials on smaller screens */
+    align-items: center;
+  }
 }
