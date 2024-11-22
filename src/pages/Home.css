@@ -1,88 +1,109 @@
+/* Body */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Home */
 .home {
   font-family: Arial, sans-serif;
   animation: fadeIn 1s ease-in-out; /* Fade-in animation for the home page */
 }
 
+/* Hero Banner */
 .hero-banner {
   position: relative;
-  background: url('../assets/hostel.jpg') no-repeat center center; /* Keep the image as the main background */
-  background-size: cover; /* Ensure the image covers the entire section */
+  height: 100vh; /* Full viewport height */
   color: #FFFFFF; /* White text for contrast */
   text-align: center;
   padding: 60px 20px;
   overflow: hidden; /* Prevent content from overflowing */
-  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
 }
 
-.hero-banner::before {
-  content: "";
+/* Video Background */
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the video fits the banner dimensions */
+  z-index: -1; /* Places the video behind the content */
+}
+
+/* Overlay */
+.hero-banner .overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3); /* Subtle black overlay with 30% opacity */
-  z-index: 0; /* Ensure it is below interactive elements */
+  background: rgba(0, 0, 0, 0.6); /* Darker overlay for improved readability */
+  z-index: 0;
+  animation: fadeIn 2s ease-in-out; /* Smooth fade-in for the overlay */
 }
 
+/* Hero Banner Heading */
 .hero-banner h1 {
-  font-size: 3em;
-  margin-bottom: 10px;
-  color: white; /* Keep it white for better readability */
+  font-size: 4em;
+  font-weight: bold;
+  color: #FFD700; /* Gold text to stand out */
   z-index: 2; /* Ensure the heading is above the overlay */
   position: relative;
-  animation: fadeIn 1s ease-in-out 0.3s; /* Delayed fade-in animation */
+  text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9); /* Add strong shadow for definition */
+  animation: bounceIn 1.5s ease-out, glow 2s infinite alternate; /* Bounce-in effect and glowing text */
 }
 
+/* Hero Banner Paragraph */
 .hero-banner p {
-  font-size: 1.5em;
-  color: white; /* Keep it white for better readability */
+  font-size: 1.8em;
+  color: #FFFFFF; /* Keep it white for better readability */
   z-index: 2;
   position: relative;
-  animation: fadeIn 1s ease-in-out 0.5s; /* Delayed fade-in animation */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8); /* Strong shadow for better definition */
+  animation: fadeInUp 2s ease-in-out 0.5s forwards; /* Delayed fade-in with upward motion */
 }
 
+/* Shop Now Button */
 .shop-now-btn {
   display: inline-block;
-  padding: 10px 20px;
-  background-color: #FF8C42; /* Keep the button color vibrant */
+  padding: 15px 30px;
+  background-color: #FF4500; /* Bright orange button */
   color: #FFFFFF;
   text-decoration: none;
-  border-radius: 5px;
-  font-size: 1em;
+  border-radius: 8px;
+  font-size: 1.5em;
+  font-weight: bold;
   cursor: pointer;
   text-align: center;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
   z-index: 2;
   position: relative;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8); /* Button text shadow for readability */
+  animation: popIn 1s ease-out 1s forwards; /* Pop-in effect for the button */
 }
 
 .shop-now-btn:hover {
-  background-color: #FFD166; /* Slight hover effect */
-  color: #4A4E69;
-  transform: scale(1.1); /* Button enlarges slightly on hover */
+  background-color: #FF6347; /* Slightly lighter orange on hover */
+  transform: scale(1.2); /* Button enlarges significantly on hover */
+  box-shadow: 0 8px 20px rgba(255, 69, 0, 0.6); /* Glowing shadow on hover */
 }
 
-.featured-section {
-  padding: 40px 20px;
-  text-align: center;
-  background-color: #FFF5E1;
-  animation: fadeIn 1s ease-in-out 0.5s; /* Fade-in animation */
-}
-
-.featured-section h2 {
-  font-size: 2em;
-  color: #FF8C42;
-  margin-bottom: 20px;
-  animation: slideInFromBottom 1s ease-in-out; /* Slide in from the bottom */
-}
-
+/* Testimonials Section */
 .testimonials {
   padding: 40px 20px;
   background-color: #F7F7F7;
-  animation: fadeIn 1s ease-in-out 0.8s; /* Fade-in with slight delay */
+  animation: fadeInUp 1.5s ease-in-out; /* Fade-in with upward motion */
 }
 
+/* Testimonial Cards Container */
 .testimonial-cards {
   display: flex;
   justify-content: center;
@@ -90,22 +111,83 @@
   flex-wrap: wrap; /* Ensure responsiveness */
 }
 
+/* Testimonial Card */
 .testimonial-card {
   background: #FFFFFF;
   border: 1px solid #E0E0E0;
   padding: 20px;
-  max-width: 250px; /* Slightly larger card size */
+  max-width: 300px; /* Adjusted size for more prominent cards */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: #4A4E69;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  animation: slideInFromBottom 1s ease-in-out; /* Slide up animation */
+  transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, background-color 0.4s ease-in-out;
+  animation: scaleIn 1.2s ease-in-out, float 4s ease-in-out infinite; /* Scale-in and floating animation */
+  border-radius: 10px;
 }
 
+/* Hover Effect on Testimonial Card */
 .testimonial-card:hover {
-  transform: scale(1.05); /* Slightly scale the card when hovered */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhance the shadow on hover for a more elevated effect */
+  transform: scale(1.1) rotate(3deg); /* Slight rotation and scale effect */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+  background-color: #FFFAF0; /* Slightly warm background color on hover */
 }
 
+/* Testimonial Card Title */
+.testimonial-card h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4A90E2; /* Vibrant blue for the title */
+  margin-bottom: 10px;
+  animation: slideInFromLeft 1s ease-in-out; /* Slide-in animation for titles */
+}
+
+/* Testimonial Card Description */
+.testimonial-card p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 5px 0 0 0;
+  animation: fadeIn 1.5s ease-in-out; /* Fade-in for the text content */
+}
+
+/* Animations */
+
+/* Scale-In Animation */
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Floating Animation */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Slide-In from Left */
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Fade-In Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -115,40 +197,15 @@
   }
 }
 
-@keyframes slideInFromLeft {
-  from {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideInFromBottom {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
-  .hero-banner h1 {
-    font-size: 2.5em;
-  }
-
-  .hero-banner p {
-    font-size: 1.2em;
-  }
-
   .testimonial-cards {
     flex-direction: column; /* Stack testimonials on smaller screens */
     align-items: center;
   }
+
+  .testimonial-card {
+    max-width: 90%; /* Make cards full width on smaller screens */
+  }
 }
+  

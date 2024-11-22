@@ -1,100 +1,105 @@
-/* Hero Section Styles */
-.hero {
+/* Landing Page */
+.landing-page {
   position: relative;
-  text-align: center;
-  padding: 50px;
-  background-image: url('../assets/campus.png'); /* Keep the background image */
-  background-size: cover;
-  background-position: center center;
-  height: 100vh; /* Full viewport height */
-  color: white;
+  background-image: url('../assets/campus.png'); /* Background image for the landing page */
+  background-size: cover; /* Ensure the background covers the page */
+  background-position: center; /* Center the image */
+  background-attachment: fixed; /* Keeps the background fixed during scroll */
+  min-height: 100vh; /* Ensures the background spans the viewport */
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Vertically center the content */
-  align-items: center;
-  z-index: 1;
-  animation: fadeIn 1s ease-in-out; /* Fade-in animation on page load */
+  animation: fadeIn 2s ease-in-out; /* Smooth fade-in on page load */
 }
 
-/* Add a faded overlay */
-.hero::after {
-  content: '';
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 70vh; /* Height of the hero section */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  text-align: center;
+  z-index: 1; /* Ensure content is above the video */
+  padding: 20px;
+  overflow: hidden; /* Prevent overflow of video outside the hero section */
+  background: rgba(0, 0, 0, 0.5); /* Add a dark overlay to the entire hero section */
+  animation: slideInFromTop 1.5s ease-out; /* Slide-in effect for the hero section */
+}
+
+/* Background Video in Hero */
+.hero video {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Dark overlay with 50% opacity */
-  z-index: 0; /* Ensure the overlay is on top of the background */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the video covers the hero section */
+  z-index: -1; /* Places video behind the text */
+  opacity: 0.6; /* Reduce brightness of the video */
 }
 
-/* Hero content stays above the overlay */
-.hero h1, .hero p, .cta-button {
-  position: relative;
-  z-index: 2; /* Keep the text and button above the overlay */
-  color: white;
-  animation: slideInFromTop 1s ease-in-out; /* Slide-in animation for text */
-}
-
+/* Hero Text */
 .hero h1 {
-  font-size: 36px;
-  margin: 10px 0;
+  position: relative;
+  z-index: 1;
+  font-size: 3.5rem; /* Larger font for the title */
   font-weight: bold;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  color: #fff; /* White text */
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8); /* Strong shadow for better definition */
+  animation: bounceIn 1s ease-in-out, glow 1.5s infinite alternate; /* Bounce-in effect and glowing text */
 }
 
 .hero p {
-  font-size: 18px;
+  position: relative;
+  z-index: 1;
+  font-size: 1.4rem; /* Slightly larger font */
   line-height: 1.6;
-  margin: 8px 0;
-  max-width: 600px;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+  color: #f5f5f5; /* Light gray for better readability */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8); /* Strong shadow for better definition */
+  margin-bottom: 20px;
+  animation: fadeIn 1.5s ease-in-out 0.5s forwards; /* Delayed fade-in effect */
 }
 
-/* CTA Button with hover animation */
-.cta-button {
-  background-color: #00c853;
-  border: none;
-  color: white;
+/* Call-to-Action Button */
+.hero .cta-button {
+  position: relative;
+  z-index: 1;
+  background-color: #007bff; /* Button background */
+  color: #fff; /* Button text color */
   padding: 12px 24px;
-  font-size: 18px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  border-radius: 5px;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); /* Button text shadow */
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  animation: popIn 1s ease-in-out 0.5s forwards; /* Pop-in effect for button */
 }
 
-.cta-button:hover {
-  background-color: #009624;
-  transform: scale(1.1); /* Enlarge slightly on hover */
-}
-
-/* Animated Logo */
-.hero img.logo-image {
-  position: absolute;
-  top: 50%; /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%) scale(0.8); /* Start smaller */
-  height: 150px;
-  width: 150px;
-  z-index: 3;
-  animation: bounceIn 1s ease-out; /* Bounce animation for the logo */
+.hero .cta-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.1); /* Slightly enlarge the button */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Add a glowing shadow */
 }
 
 /* Roadmap Section */
 .roadmap {
   padding: 60px 20px;
   text-align: center;
-  background-color: #F5F5F7;
-  animation: fadeIn 1s ease-in-out 0.5s; /* Delayed fade-in animation */
+  background-color: #f5f5f7;
+  z-index: 2; /* Ensure roadmap section is above landing page background */
+  animation: fadeInUp 1s ease-in-out 0.8s; /* Fade-in and upward motion */
 }
 
 .roadmap h2 {
   font-size: 28px;
   margin-bottom: 40px;
   color: #4A90E2;
-  animation: slideInFromLeft 1s ease-in-out; /* Slide-in animation from left */
+  animation: slideInFromLeft 1.2s ease-in-out; /* Slide-in animation from left */
 }
 
+/* Steps Container */
 .steps-container {
   display: flex;
   flex-direction: column;
@@ -102,6 +107,7 @@
   gap: 50px;
 }
 
+/* Each Step */
 .step {
   display: flex;
   align-items: center;
@@ -113,18 +119,21 @@
   justify-content: flex-start;
   gap: 20px;
   flex-wrap: wrap;
-  transform: translateX(-50px); /* Start off-screen */
+  transform: translateY(30px); /* Start below */
   opacity: 0; /* Hidden initially */
-  animation: slideInFromRight 1s ease-in-out forwards; /* Slide in from the right */
+  animation: slideInFromBottom 1s ease-in-out forwards;
 }
 
+/* Step Icon */
 .step-icon {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   background-size: cover;
+  animation: pulse 1.5s infinite; /* Cool pulsing effect */
 }
 
+/* Specific Icons for Each Step */
 .step1-icon {
   background-color: #00c853;
   background-image: url('../assets/icon1.png');
@@ -145,37 +154,33 @@
   background-image: url('../assets/icon4.png');
 }
 
-.step h3, .step h4, .step p {
-  margin-left: 15px;
-  margin-right: 15px;
+/* Step Content */
+.step h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4A90E2;
+  margin: 0;
 }
 
-/* Footer */
-.footer {
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  font-size: 14px;
-  animation: fadeIn 1s ease-in-out 1s; /* Delayed fade-in for footer */
+.step h4 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+.step p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 5px 0 0 0;
 }
 
 /* Keyframes for Animations */
 
-/* Fade In */
-@keyframes fadeIn {
+/* Slide In From Bottom */
+@keyframes slideInFromBottom {
   from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Slide In From Top */
-@keyframes slideInFromTop {
-  from {
-    transform: translateY(-50px);
+    transform: translateY(50px);
     opacity: 0;
   }
   to {
@@ -184,39 +189,19 @@
   }
 }
 
-/* Slide In From Left */
-@keyframes slideInFromLeft {
-  from {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* Slide In From Right */
-@keyframes slideInFromRight {
-  from {
-    transform: translateX(50px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* Bounce In */
-@keyframes bounceIn {
+/* Pulse Effect */
+@keyframes pulse {
   0% {
-    transform: translate(-50%, -50%) scale(0.8);
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.1);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
   }
   100% {
-    transform: translate(-50%, -50%) scale(1);
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
 }
+

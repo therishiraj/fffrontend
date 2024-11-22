@@ -1,25 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';  // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 import './LandingPage.css';
-import campusImage from '../assets/campus.png';  // Import the campus image
-import logo from '../assets/logo2.png';  // Import the logo image
+import abcVideo from '../assets/landbg1.mp4'; // Import the video
 
 const LandingPage = () => {
   return (
     <div className="landing-page">
+      {/* Background Video */}
+      <video autoPlay loop muted className="landing-page-video">
+        <source src={abcVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
       {/* Hero Section */}
       <section className="hero">
-        {/* Logo image positioned in front of the background */}
-        <img src={logo} alt="Logo" className="logo-image" />
-
         <h1>Welcome to Fresh Finds</h1>
         <p>Connecting university students to buy and sell used items easily.</p>
         <p>Sellers list items conveniently, while Buyers get access to affordable books and supplies.</p>
-
-        {/* Add the campus background image */}
-        <img src={campusImage} alt="Campus" className="hero-image" />  {/* Add the image with a class for styling */}
-
-        {/* Link wrapping the Get Started button to navigate to Home */}
         <Link to="/home">
           <button className="cta-button">Get Started</button>
         </Link>
@@ -31,7 +28,7 @@ const LandingPage = () => {
         <div className="steps-container">
           <div className="step">
             <div className="step-icon step1-icon"></div>
-            <h3>STEP 01 </h3>
+            <h3>STEP 01</h3>
             <h4>Find Your Spare Items</h4>
             <p>Identify items you no longer need, like books, bikes, or supplies.</p>
           </div>
@@ -55,11 +52,6 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="footer">
-        <p>&copy; {new Date().getFullYear()} Fresh Finds. All rights reserved.</p>
-      </footer>
     </div>
   );
 };
