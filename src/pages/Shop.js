@@ -1,92 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Import AuthContext
+import { useAuth } from '../context/AuthContext';
 import Categories from '../components/Categories';
+import axios from 'axios';
 import './Shop.css';
 
 const Shop = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0); // to set current index 
+  const [comment, setComment] = useState(''); // State for comment input
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [products, setProducts] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
   const [isCategoryDropdownVisible, setIsCategoryDropdownVisible] = useState(false);
   const [isPriceDropdownVisible, setIsPriceDropdownVisible] = useState(false);
   const [filteredCategory, setFilteredCategory] = useState('All');
-  const [showBuyerPopup, setShowBuyerPopup] = useState(false); // New state for buyer popup
   const navigate = useNavigate();
-  const { role } = useAuth(); // Get the user's role from AuthContext
+  const { role } = useAuth();
 
-  const handleProductClick = (product) => {
-    setSelectedProduct(product);
-  };
-
-  const closePopup = () => {
-    setSelectedProduct(null);
-    setShowBuyerPopup(false); // Close the buyer popup
-  };
-
-  const handleImageNavigation = (direction) => {
-    if (selectedProduct) {
-      const totalImages = selectedProduct.images.length;
-      if (direction === 'next') {
-        setCurrentImageIndex((currentImageIndex + 1) % totalImages);
-      } else if (direction === 'prev') {
-        setCurrentImageIndex((currentImageIndex - 1 + totalImages) % totalImages);
-      }
-    }
-  };
-
-  const handleMeetSeller = () => {
-    closePopup();
-    navigate('/messages');
-  };
-
-  const handleBuyNowClick = (product) => {
-    if (role === 'seller') {
-      setShowBuyerPopup(true); // Show popup if the user is a seller
-    } else {
-      handleProductClick(product); // Allow buyers to proceed
-    }
-  };
-
-  const handleCategoryFilter = () => {
-    setIsCategoryDropdownVisible(!isCategoryDropdownVisible);
-    setIsPriceDropdownVisible(false);
-  };
-
-  const handlePriceSort = () => {
-    setIsPriceDropdownVisible(!isPriceDropdownVisible);
-    setIsCategoryDropdownVisible(false);
-  };
-
-  const handleCategorySelect = (category) => {
-    setFilteredCategory(category); // Update the selected category
-    setIsCategoryDropdownVisible(false);
-  };
-
-  const handleSortSelect = (order) => {
-    const sorted = [...products].sort((a, b) =>
-      order === 'low-to-high' ? a.price - b.price : b.price - a.price
-    );
-    setSortedProducts(sorted);
-    setIsPriceDropdownVisible(false);
-  };
-
+  // Fetch products
   const fetchProducts = async () => {
     try {
       const response = await fetch('http://13.54.149.207:3001/api/v0/open/get-products');
       const data = await response.json();
 
       if (data.success) {
-        const formattedProducts = data.items.map((item) => ({
+        const formattedProducts = data
+        .filter((item) => item.isListed)
+        .items.map((item) => ({
           id: item._id,
           name: item.item_name,
-          images: item.image_urls, // Use array of images
+          images: item.image_urls,
           price: item.price,
           description: item.description,
           category: item.category,
           age: item.item_age,
           condition: item.condition,
+          seller_id: item.seller_id,
         }));
         setProducts(formattedProducts);
       } else {
@@ -94,6 +43,57 @@ const Shop = () => {
       }
     } catch (error) {
       console.error('Error fetching products:', error);
+    }
+  };
+
+  // Handle "I am Interested" click
+  const handleInterestedClick = (product) => {
+    setSelectedProduct(product);
+    setComment(''); // Reset the comment input
+  };
+
+  // Handle sending the request
+  const handleSendRequest = async () => {
+    const buyerId = localStorage.getItem('user_id') || '';
+    const token = localStorage.getItem('accessToken');
+
+    if (!token || !selectedProduct) {
+      alert('User is not logged in or session has expired.');
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        'http://13.54.149.207:3001/api/v0/protected/add-to-cart',
+        {
+          seller_id: selectedProduct.seller_id,
+          buyer_id: buyerId,
+          item_id: selectedProduct.id,
+          comment, // Include the comment in the request
+          item_name: selectedProduct.name,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        alert('Request sent successfully!');
+        navigate('/requests'); // Redirect to requests page
+      } else {
+        console.error('Failed to send request:', response);
+      }
+    } catch (error) {
+      console.error('Error sending request:', error);
+      if (error.response && error.response.status === 401) {
+        alert('Unauthorized: Please log in again.');
+      }
+    } finally {
+      setSelectedProduct(null); // Close the popup
+      setComment(''); // Reset the comment input
     }
   };
 
@@ -112,28 +112,31 @@ const Shop = () => {
         <p>Browse through our wide range of affordable used items that are perfect for NITC students!</p>
       </header>
 
-      <Categories onCategorySelect={handleCategorySelect} />
+      <Categories onCategorySelect={() => {}} />
 
       <div className="filter-sort">
-        <button onClick={handlePriceSort}>Sort by Price</button>
-        <button onClick={handleCategoryFilter}>Filter by Category</button>
+        <button onClick={() => setIsPriceDropdownVisible(!isPriceDropdownVisible)}>Sort by Price</button>
+        <button onClick={() => setIsCategoryDropdownVisible(!isCategoryDropdownVisible)}>Filter by Category</button>
 
         {isPriceDropdownVisible && (
           <div className="dropdown-menu">
-            <button onClick={() => handleSortSelect('low-to-high')}>Low to High</button>
-            <button onClick={() => handleSortSelect('high-to-low')}>High to Low</button>
+            <button onClick={() => setSortedProducts([...products].sort((a, b) => a.price - b.price))}>
+              Low to High
+            </button>
+            <button onClick={() => setSortedProducts([...products].sort((a, b) => b.price - a.price))}>
+              High to Low
+            </button>
           </div>
         )}
 
         {isCategoryDropdownVisible && (
           <div className="dropdown-menu">
-            <button onClick={() => handleCategorySelect('All')}>All</button>
-            <button onClick={() => handleCategorySelect('Books')}>Books</button>
-            <button onClick={() => handleCategorySelect('Kitchenware')}>Kitchenware</button>
-            <button onClick={() => handleCategorySelect('Electronics')}>Electronics</button>
-            <button onClick={() => handleCategorySelect('Furniture')}>Furniture</button>
-            <button onClick={() => handleCategorySelect('Other')}>Other</button>
-
+            <button onClick={() => setFilteredCategory('All')}>All</button>
+            <button onClick={() => setFilteredCategory('Books')}>Books</button>
+            <button onClick={() => setFilteredCategory('Kitchenware')}>Kitchenware</button>
+            <button onClick={() => setFilteredCategory('Electronics')}>Electronics</button>
+            <button onClick={() => setFilteredCategory('Furniture')}>Furniture</button>
+            <button onClick={() => setFilteredCategory('Other')}>Other</button>
           </div>
         )}
       </div>
@@ -147,43 +150,38 @@ const Shop = () => {
               <h3>{product.name}</h3>
               <p className="price">₹{product.price}</p>
               <p className="condition">Condition: {product.condition}/5</p>
-              <button className="add-to-cart" onClick={() => handleBuyNowClick(product)}>
-                Buy now
+              <button className="add-to-cart" onClick={() => handleInterestedClick(product)}>
+                I am interested
               </button>
             </div>
           ))}
         </div>
       </section>
 
+      {/* Popup for comment and sending request */}
       {selectedProduct && (
         <div className="popup">
           <div className="popup-content">
             <h3>{selectedProduct.name}</h3>
             <div className="image-slider">
-              <img src={selectedProduct.images[currentImageIndex]} alt={`Product ${currentImageIndex + 1}`} />
-              <button className="arrow right-arrow" onClick={() => handleImageNavigation('next')}>I am interested
-                &#8250;
-              </button>
+              <img
+                src={selectedProduct.images[currentImageIndex]}
+                alt={`Product ${currentImageIndex + 1}`}
+                className='product-image'
+              />
             </div>
-            <p className="category">Category: {selectedProduct.category}</p>
-            <p className="description">{selectedProduct.description}</p>
-            <p className="age">Age: {selectedProduct.age} months</p>
-            <p className="condition">Condition: {selectedProduct.condition}/5</p>
-            <p className="price">Price: ₹{selectedProduct.price}</p>
-            <button onClick={closePopup}>Close</button>
-            <button onClick={handleMeetSeller} className="meet-seller">
-              Meet the Seller
+            <textarea
+              placeholder="Add a comment for the seller..."
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              className="comment-input"
+            ></textarea>
+            <button className="confirm-button" onClick={handleSendRequest}>
+              Send Request
             </button>
-          </div>
-        </div>
-      )}
-
-      {/* Buyer Popup */}
-      {showBuyerPopup && (
-        <div className="popup">
-          <div className="popup-content">
-            <p>Please register as a buyer to purchase this product.</p>
-            <button onClick={closePopup} className="close-button">Close</button>
+            <button className="close-button" onClick={() => setSelectedProduct(null)}>
+              Close
+            </button>
           </div>
         </div>
       )}

@@ -25,13 +25,13 @@ const Login = () => {
         console.log("Succesfully logged in");
         console.log(response.data)
         localStorage.setItem("accessToken", response.data.accessToken);
-        localStorage.setItem("user_id", response.data.user._id);
-        localStorage.setItem("email", response.data.user.email);
+        localStorage.setItem("user_id", response.data.user.user_id);
+        /*localStorage.setItem("email", response.data.user.email);*/
         localStorage.setItem("name", response.data.user.name);
-        localStorage.setItem("phone",response.data.user.phone);
+        /*localStorage.setItem("phone",response.data.user.phone);*/
         localStorage.setItem("role",response.data.user.role);
-        localStorage.setItem("year_of_study",response.data.user.year_of_study);
-        localStorage.setItem("address",response.data.user.address)
+        /*localStorage.setItem("year_of_study",response.data.user.year_of_study);
+        localStorage.setItem("address",response.data.user.address)*/
 
         const userRole = response.data.user.role;
         login(userRole); 

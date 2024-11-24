@@ -1,63 +1,89 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
+import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { FaUserCircle } from 'react-icons/fa'; // Import an icon from react-icons
 
-const Profile = () => {
+  const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [userData, setUserData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    year_of_study: '',
-    user_id: '',
-    address: ''
-  });
+    "email": "",
+    "name":"",
+    "phone":"",
+    "role":"",
+    "seller_info": {
+    item_counts:"",
+    seller_address:""
+    },
+    user_id:"",
+    year_of_study: ""  });
   const [myListings, setMyListings] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const { role } = useAuth();
 
-  useEffect(() => {
-    const storedData = {
-      name: localStorage.getItem('name') || '',
-      email: localStorage.getItem('email') || '',
-      phone: localStorage.getItem('phone') || '',
-      year_of_study: localStorage.getItem('year_of_study') || '',
-      user_id: localStorage.getItem('user_id') || '',
-      address: localStorage.getItem('address') || '',
-    };
-    setUserData(storedData);
-
-    const fetchMyListings = async () => {
-      try {
-        const response = await fetch('http://13.54.149.207:3001/api/v0/open/get-products');
-        const data = await response.json();
-
-        if (data.success) {
-          const userProducts = data.items
-            .filter((item) => item.seller_id === storedData.user_id)
-            .map((item) => ({
-              id: item._id,
-              name: item.item_name,
-              images: item.image_urls,
-              price: item.price,
-              description: item.description,
-              category: item.category,
-              age: item.item_age,
-              condition: item.condition,
-            }));
-          setMyListings(userProducts);
-        } else {
-          console.error('Failed to fetch products');
-        }
-      } catch (error) {
-        console.error('Error fetching products:', error);
+  // axios.defaults.baseURL = 
+  const fetchMyListings = async () => {
+    try {
+      console.log("called")
+      const response = await axios.get('/open/get-products');
+      const data = response.data;
+      console.log(data)
+      if (data.success) {
+        const userProducts = data.items
+          .filter((item) => item.seller_id === userData.user_id)
+          .map((item) => ({
+            id: item._id,
+            name: item.item_name,
+            images: item.image_urls,
+            price: item.price,
+            description: item.description,
+            category: item.category,
+            age: item.item_age,
+            condition: item.condition,
+          }));
+          console.log(data)
+        setMyListings(userProducts);
+      } else {
+        console.error('Failed to fetch products');
       }
-    };
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+  const fetchUserData = async () => {
+    try {
+      const user_id = localStorage.getItem('user_id') || '';
+      const response = await axios.post(
+        '/protected/get-user-complete',
+        { user_id, role },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: localStorage.getItem('accessToken'),
+          },
+        }
+      );
+      console.log(response)
+      if (response.status === 200) {
+        setUserData(response.data.details); // Update state with the API response
+        localStorage.setItem('name', response.data.details.name || '');
+        localStorage.setItem('email', response.data.details.email || '');
+        localStorage.setItem('phone', response.data.details.phone || '');
+        localStorage.setItem('year_of_study', response.data.details.year_of_study || '');
+        /*localStorage.setItem('address', response.data.details.seller_info.seller_address || '');*/
+      } else {
+        console.error('Failed to fetch user data:', response);
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
 
+  useEffect(() => {
+    fetchUserData();
     fetchMyListings();
   }, []);
 
@@ -94,19 +120,19 @@ const Profile = () => {
 
   const handleDeleteProduct = async (productId) => {
     try {
-      console.log(productId)
-      const response = await fetch(`http://13.54.149.207:3001/api/v0/protected/remove-product?id=${productId}`, {
+      console.log(productId);
+      const response = await axios.delete(`protected/remove-product?id=${productId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           Authorization: localStorage.getItem('accessToken'),
         },
-      }); 
+      });
 
-      const data = await response.json();
+      const data = response.data;
       if (response.ok) {
         alert('Product deleted successfully');
-        setMyListings(myListings.filter((product) => product.id !== productId)); // Remove the product from the UI
+        setMyListings(myListings.filter((product) => product.id !== productId));
         closePopup();
       } else {
         alert(`Failed to delete product: ${data.message}`);
@@ -116,7 +142,6 @@ const Profile = () => {
       alert('An error occurred while deleting the product.');
     }
   };
-
   return (
     <div className="profile-container">
       <div className="profile-card">
@@ -161,10 +186,8 @@ const Profile = () => {
               <label>Role</label>
               <p>{role}</p>
             </div>
-            <div>
-              <label>Address</label>
-              <p>{userData.address}</p>
-            </div>
+            {/* <div><label>Address</label><p>{userData.seller_info.seller_address}</p>
+            </div> */}
           </div>
         </div>
 
