@@ -51,7 +51,7 @@ const PostItem = () => {
     files.forEach((file) => formData.append('images', file));
 
     try {
-      const response = await axios.post('http://13.54.149.207:3001/api/v0/protected/add-product', formData, {
+      const response = await axios.post('/protected/add-product', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           authorization: localStorage.getItem('accessToken'),

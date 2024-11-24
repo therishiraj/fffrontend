@@ -10,7 +10,7 @@ const Login = () => {
   const [errMsg, setErrMsg] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth();
-  axios.defaults.baseURL = "http://13.54.149.207:3001/api/v0";
+  
   // axios.defaults.baseURL = "http://localhost:3001/api/v0";
   const handleLogin = (e) => {
     e.preventDefault();

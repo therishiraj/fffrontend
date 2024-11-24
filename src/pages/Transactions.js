@@ -15,7 +15,7 @@ const Transactions = () => {
 
     try {
       const response = await axios.get(
-        'http://13.54.149.207:3001/api/v0/protected/get-products-requests',
+        '/protected/get-products-requests',
         {
           params: { _id: userId, role: 'seller' }, // Fetch requests for the seller
           headers: {
@@ -44,7 +44,7 @@ const Transactions = () => {
   
     try {
       const response = await axios.patch(
-        `http://13.54.149.207:3001/api/v0/protected/change_request_status`,
+        `/protected/change_request_status`,
         { status },
         {
           params: { cart_id: cartId }, // Send cart ID in query params
@@ -83,7 +83,7 @@ const Transactions = () => {
 
     try {
       const response = await axios.post(
-        'http://13.54.149.207:3001/api/v0/protected/get-user-complete',
+        '/protected/get-user-complete',
         {
           user_id: buyerId,
           role: 'buyer',
