@@ -20,7 +20,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   // Set base URL for axios
-  axios.defaults.baseURL = "http://13.54.149.207:3001/api/v0";
+  // axios.defaults.baseURL = "http://13.54.149.207:3001/api/v0";
 
   const handleRegister = (e) => {
     e.preventDefault();

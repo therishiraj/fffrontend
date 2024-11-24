@@ -23,7 +23,7 @@ const Requests = () => {
 
     try {
       const response = await axios.get(
-        'http://13.54.149.207:3001/api/v0/protected/get-products-requests',
+        '/protected/get-products-requests',
         {
           params: { _id: userId, role: role }, // Send _id and role as query parameters
           headers: {
@@ -53,7 +53,7 @@ const Requests = () => {
 
     try {
       const response = await axios.get(
-        'http://13.54.149.207:3001/api/v0/protected/get-item',
+        '/protected/get-item',
         {
           params: { _id: itemId }, // Send item_id as query parameter
           headers: {
@@ -82,7 +82,7 @@ const Requests = () => {
 
     try {
       const response = await axios.post(
-        'http://13.54.149.207:3001/api/v0/protected/get-user-complete',
+        '/protected/get-user-complete',
         {
           user_id: sellerId,
           role: 'seller',

@@ -20,7 +20,7 @@ const Shop = () => {
   // Fetch products
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://13.54.149.207:3001/api/v0/open/get-products');
+      const response = await fetch('/open/get-products');
       const data = await response.json();
 
       if (data.success) {
@@ -64,7 +64,7 @@ const Shop = () => {
 
     try {
       const response = await axios.post(
-        'http://13.54.149.207:3001/api/v0/protected/add-to-cart',
+        '/protected/add-to-cart',
         {
           seller_id: selectedProduct.seller_id,
           buyer_id: buyerId,

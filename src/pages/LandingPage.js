@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './LandingPage.css';
-import abcVideo from '../assets/landbg1.mp4'; // Import the video
+// import abcVideo from '../assets/landbg1.mp4'; // Import the video
 
 const LandingPage = () => {
   return (
     <div className="landing-page">
       {/* Background Video */}
       <video autoPlay loop muted className="landing-page-video">
-        <source src={abcVideo} type="video/mp4" />
+        {/* <source src={abcVideo} type="video/mp4" /> */}
         Your browser does not support the video tag.
       </video>
 

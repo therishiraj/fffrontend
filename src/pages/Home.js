@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
-import homebg from '../assets/homebg.mp4'; // Corrected relative path
+// import homebg from '../assets/homebg.mp4'; // Corrected relative path
 import FeaturedListings from '../components/FeaturedListings'; // Import FeaturedListings
 
 const Home = () => {
@@ -9,7 +9,7 @@ const Home = () => {
     <div className="home">
       <section className="hero-banner">
         <video className="video-background" autoPlay muted loop>
-          <source src={homebg} type="video/mp4" />
+          {/* <source src={homebg} type="video/mp4" /> */}
           Your browser does not support the video tag.
         </video>
         <div className="overlay"></div> {/* Overlay to create the fade effect */}
