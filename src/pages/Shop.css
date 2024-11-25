@@ -137,17 +137,19 @@
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+.product-card img {
+  width: 100%; /* Ensure the image takes up the full width of the container */
+  height: 200px; /* Set a fixed height for all product images */
+  object-fit: contain; /* Ensure the image scales correctly without distortion */
+  border-radius: 8px; /* Maintain the existing border radius */
+}
+
 
 .product-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.product-card img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
 
 .product-card h3 {
   font-size: 20px;

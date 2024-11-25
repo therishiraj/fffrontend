@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../assets/logo2.png';
 import { useAuth } from '../context/AuthContext';
@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle, faBell } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
+  const location = useLocation(); // To detect the current route
   const { isLoggedIn, role, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -53,6 +54,11 @@ const Navbar = () => {
     };
   }, []);
 
+  // Don't render the navbar on the admin panel page
+  if (location.pathname === '/admin-panel') {
+    return null;
+  }
+
   return (
     <>
       <nav className="navbar">
@@ -66,9 +72,9 @@ const Navbar = () => {
           <li><Link to="/home">Home</Link></li>
           <li>
             {role === "seller" || role === "buyer+seller" ? (
-              <Link to="/post-item">Post an Item</Link> 
+              <Link to="/post-item">Post an Item</Link>
             ) : (
-              <Link to="#" onClick={handlePostItemClick} className="disabled-link">Post an Item</Link> 
+              <Link to="#" onClick={handlePostItemClick} className="disabled-link">Post an Item</Link>
             )}
           </li>
           <li><Link to="/shop">Shop</Link></li>
@@ -106,12 +112,12 @@ const Navbar = () => {
                 />
                 {isMenuOpen && (
                   <div className="dropdown-menu">
-                  <Link to="/requests" className="dropdown-item">Requests</Link>
-                  <Link to="/transactions" className="dropdown-item">Transactions</Link>
-                  <Link to="/my-orders" className="dropdown-item">My Orders</Link>
-                  <Link to="/profile" className="dropdown-item">Profile</Link>
-                  <button onClick={logout} className="dropdown-item logout-btn">Logout</button>
-                </div>
+                    <Link to="/requests" className="dropdown-item">Requests</Link>
+                    <Link to="/transactions" className="dropdown-item">Transactions</Link>
+                    <Link to="/my-orders" className="dropdown-item">My Orders</Link>
+                    <Link to="/profile" className="dropdown-item">Profile</Link>
+                    <button onClick={logout} className="dropdown-item logout-btn">Logout</button>
+                  </div>
                 )}
               </div>
             </div>

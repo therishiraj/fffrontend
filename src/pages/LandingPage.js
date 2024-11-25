@@ -6,11 +6,7 @@ import './LandingPage.css';
 const LandingPage = () => {
   return (
     <div className="landing-page">
-      {/* Background Video */}
-      <video autoPlay loop muted className="landing-page-video">
-        {/* <source src={abcVideo} type="video/mp4" /> */}
-        Your browser does not support the video tag.
-      </video>
+     
 
       {/* Hero Section */}
       <section className="hero">

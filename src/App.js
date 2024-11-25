@@ -26,8 +26,8 @@ import axios from 'axios';
 import { useAuth } from './context/AuthContext';
 import { Navigate } from 'react-router-dom';
 
-// axios.defaults.baseURL = "http://13.54.149.207:3001/api/v0";
-axios.defaults.baseURL = "http://192.168.204.246:3001/api/v0";
+axios.defaults.baseURL = "http://13.54.149.207:3002/api/v0";
+// axios.defaults.baseURL = "http://192.168.204.246:3001/api/v0";
 
 const ProtectedRoute = ({ children }) => {
   const { isLoggedIn } = useAuth();

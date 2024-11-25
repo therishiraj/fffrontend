@@ -20,13 +20,13 @@ const Shop = () => {
   // Fetch products
   const fetchProducts = async () => {
     try {
-      const response = await fetch('/open/get-products');
-      const data = await response.json();
-
-      if (data.success) {
-        const formattedProducts = data
+      const response = await axios.get('/open/get-products');
+      
+      if (response.data && response.data.success && Array.isArray(response.data.items)) {
+        console.log("This is get-products reponse:",response)
+        const formattedProducts = response.data.items
         .filter((item) => item.isListed)
-        .items.map((item) => ({
+        .map((item) => ({
           id: item._id,
           name: item.item_name,
           images: item.image_urls,
