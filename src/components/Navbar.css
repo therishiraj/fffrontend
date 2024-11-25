@@ -36,6 +36,7 @@
   list-style: none;
   display: flex;
   gap: 20px;
+  margin: 0;
 }
 
 .nav-links a {
@@ -51,12 +52,16 @@
 }
 
 .nav-links a:hover {
-  background-color: #FFD166; /* Vibrant hover effect */
+  background-color: #ffde93; /* Vibrant hover effect */
   color: #343A40; /* Contrast for better readability */
-  text-decoration: underline;
+  /* text-decoration: underline; */
   transform: scale(1.1); /* Slight zoom for better interactivity */
 }
-
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 .nav-auth {
   display: flex;
   gap: 10px;
@@ -259,3 +264,64 @@
   gap: 15px; /* Add spacing between the icons */
 }
 
+@media (max-width: 768px) {
+  /* Navbar becomes a column */
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 15px;
+  }
+
+  /* Logo is centered */
+  .nav-logo {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    align-self: center;
+  }
+
+  /* Navigation links hidden by default */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%; /* Full width for dropdown style */
+    gap: 10px;
+    background-color: #343A40; /* Same color as navbar */
+    padding: 10px 0;
+    border-radius: 6px;
+  }
+
+  .nav-links a {
+    text-align: left; /* Align links to the left */
+    padding: 10px 15px;
+  }
+
+  /* Toggle Button for Navigation */
+  .menu-toggle {
+    display: block;
+    font-size: 1.8em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #FFD166;
+    margin-left: auto;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .menu-toggle:hover {
+    transform: rotate(90deg); /* Rotate on hover */
+  }
+
+  /* Show menu when active */
+  .navbar.active .nav-links {
+    display: flex;
+  }
+
+  /* Icons and Auth Buttons stack */
+  .nav-icons,
+  .nav-auth {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+  }
+}
