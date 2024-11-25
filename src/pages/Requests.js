@@ -126,7 +126,7 @@ const Requests = () => {
   return (
     <div className="requests-page">
       <aside className="sidebar">
-        <h2>Cart Requests</h2>
+        <h2>All Requests</h2>
         <ul className="request-list">
           {cartRequests.length > 0 ? (
             cartRequests.map((request) => (
@@ -135,7 +135,7 @@ const Requests = () => {
                 className="request-item"
                 onClick={() => handleRequestClick(request)}
               >
-                <strong>Cart ID:</strong> {request._id}
+                <strong>{request.item_name}</strong> 
               </li>
             ))
           ) : (

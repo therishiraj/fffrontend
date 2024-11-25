@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Categories from '../components/Categories';
@@ -7,7 +7,7 @@ import './Shop.css';
 
 const Shop = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [comment, setComment] = useState(''); // State for comment input
+  const [comment, setComment] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [products, setProducts] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
@@ -17,26 +17,27 @@ const Shop = () => {
   const navigate = useNavigate();
   const { role } = useAuth();
 
+  // Refs for dropdowns
+  const dropdownContainerRef = useRef(null);
+
   // Fetch products
   const fetchProducts = async () => {
     try {
       const response = await axios.get('/open/get-products');
-      
       if (response.data && response.data.success && Array.isArray(response.data.items)) {
-        console.log("This is get-products reponse:",response)
         const formattedProducts = response.data.items
-        .filter((item) => item.isListed)
-        .map((item) => ({
-          id: item._id,
-          name: item.item_name,
-          images: item.image_urls,
-          price: item.price,
-          description: item.description,
-          category: item.category,
-          age: item.item_age,
-          condition: item.condition,
-          seller_id: item.seller_id,
-        }));
+          .filter((item) => item.isListed)
+          .map((item) => ({
+            id: item._id,
+            name: item.item_name,
+            images: item.image_urls,
+            price: item.price,
+            description: item.description,
+            category: item.category,
+            age: item.item_age,
+            condition: item.condition,
+            seller_id: item.seller_id,
+          }));
         setProducts(formattedProducts);
       } else {
         console.error('Failed to fetch products');
@@ -46,10 +47,30 @@ const Shop = () => {
     }
   };
 
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownContainerRef.current && !dropdownContainerRef.current.contains(event.target)) {
+        setIsPriceDropdownVisible(false);
+        setIsCategoryDropdownVisible(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   // Handle "I am Interested" click
   const handleInterestedClick = (product) => {
     setSelectedProduct(product);
-    setComment(''); // Reset the comment input
+    setComment('');
   };
 
   // Handle sending the request
@@ -69,7 +90,7 @@ const Shop = () => {
           seller_id: selectedProduct.seller_id,
           buyer_id: buyerId,
           item_id: selectedProduct.id,
-          comment, // Include the comment in the request
+          comment,
           item_name: selectedProduct.name,
         },
         {
@@ -82,7 +103,7 @@ const Shop = () => {
 
       if (response.status === 200) {
         alert('Request sent successfully!');
-        navigate('/requests'); // Redirect to requests page
+        navigate('/requests');
       } else {
         console.error('Failed to send request:', response);
       }
@@ -92,14 +113,10 @@ const Shop = () => {
         alert('Unauthorized: Please log in again.');
       }
     } finally {
-      setSelectedProduct(null); // Close the popup
-      setComment(''); // Reset the comment input
+      setSelectedProduct(null);
+      setComment('');
     }
   };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
 
   const displayedProducts = (sortedProducts.length > 0 ? sortedProducts : products).filter(
     (product) => filteredCategory === 'All' || product.category.toLowerCase() === filteredCategory.toLowerCase()
@@ -112,11 +129,13 @@ const Shop = () => {
         <p>Browse through our wide range of affordable used items that are perfect for NITC students!</p>
       </header>
 
-      <Categories onCategorySelect={() => {}} />
-
-      <div className="filter-sort">
-        <button onClick={() => setIsPriceDropdownVisible(!isPriceDropdownVisible)}>Sort by Price</button>
-        <button onClick={() => setIsCategoryDropdownVisible(!isCategoryDropdownVisible)}>Filter by Category</button>
+      <div className="filter-sort" ref={dropdownContainerRef}>
+        <button onClick={() => setIsPriceDropdownVisible(!isPriceDropdownVisible)}>
+          Sort by Price
+        </button>
+        <button onClick={() => setIsCategoryDropdownVisible(!isCategoryDropdownVisible)}>
+          Filter by Category
+        </button>
 
         {isPriceDropdownVisible && (
           <div className="dropdown-menu">
@@ -142,7 +161,7 @@ const Shop = () => {
       </div>
 
       <section className="featured-products">
-        <h2>Featured Products</h2>
+        <h2>Products</h2>
         <div className="product-grid">
           {displayedProducts.map((product) => (
             <div className="product-card" key={product.id}>
@@ -158,7 +177,6 @@ const Shop = () => {
         </div>
       </section>
 
-      {/* Popup for comment and sending request */}
       {selectedProduct && (
         <div className="popup">
           <div className="popup-content">
@@ -167,7 +185,7 @@ const Shop = () => {
               <img
                 src={selectedProduct.images[currentImageIndex]}
                 alt={`Product ${currentImageIndex + 1}`}
-                className='product-image'
+                className="product-image"
               />
             </div>
             <textarea
