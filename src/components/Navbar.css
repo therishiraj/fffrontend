@@ -25,10 +25,18 @@
 
 .logo-image {
   height: 90px; /* Adjust the height to a reasonable size */
-  width: auto; /* Maintain aspect ratio */
-  max-width: 250px; /* Set a maximum width to avoid it being too large */
-  object-fit: contain; /* Ensure the logo scales properly */
+  width: 90px; /* Set equal width and height to make it a perfect circle */
+  max-width: 90px; /* Ensure consistency in dimensions */
+  object-fit: cover; /* Ensure the image fills the circular container */
+  border-radius: 50%; /* Makes the logo round */
+  border: 3px solid #FFD166; /* Optional: Add a border for better visibility */
+  transition: transform 0.3s ease-in-out;
 }
+
+.logo-image:hover {
+  transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
 
 
 /* Navigation Links */
